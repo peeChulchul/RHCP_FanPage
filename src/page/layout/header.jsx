@@ -3,6 +3,7 @@ import styled from "styled-components";
 import headerBgUrl from "assets/img/album/header_art.avif";
 import { Container } from "components/box";
 import { Logo } from "components/logo";
+import { useLocation } from "react-router-dom";
 
 const Header = styled.header`
   height: 400px;
@@ -32,6 +33,10 @@ const PageName = styled.h1`
 `;
 
 export default function LayoutHeader() {
+  const location = useLocation();
+
+  const title = location.pathname.split("/")[1].toUpperCase();
+
   return (
     <Header>
       <Container>
@@ -42,7 +47,7 @@ export default function LayoutHeader() {
             <NavBtn>Music</NavBtn>
           </NavBtnWrapper>
         </Navs>
-        <PageName>Member</PageName>
+        <PageName>{title}</PageName>
       </Container>
     </Header>
   );

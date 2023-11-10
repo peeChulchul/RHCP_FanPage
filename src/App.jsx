@@ -1,7 +1,8 @@
-import Layout from "page/layout/view";
+import { RouterProvider } from "react-router-dom";
+import { fanPageRoute } from "routers";
 
 function App() {
-  return <Layout></Layout>;
+  return <RouterProvider router={fanPageRoute} />;
 }
 
 export default App;

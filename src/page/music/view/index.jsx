@@ -1,5 +1,5 @@
 import React from "react";
 
-export default function index() {
-  return <div>index</div>;
+export default function PageMusic() {
+  return <div>뮤직페이지</div>;
 }

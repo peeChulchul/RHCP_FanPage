@@ -1,0 +1,59 @@
+import React, { useState } from "react";
+import styled from "styled-components";
+import { v4 as uuidv4 } from "uuid";
+const Form = styled.form`
+  max-width: 500px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing) * 2);
+`;
+
+const ContentArea = styled.textarea`
+  resize: none;
+  color: black;
+  min-height: 150px;
+  padding: calc(var(--spacing) * 2);
+  &:focus {
+    outline: 3px solid var(--color-primary-alt);
+  }
+`;
+const NickNameInput = styled.input`
+  padding: calc(var(--spacing) * 2);
+  &:focus {
+    outline: 3px solid var(--color-primary-alt);
+  }
+`;
+
+export default function LetterForm({ localstorageLetters, setLocalstorageLetters, selectedMember }) {
+  const [letterValue, setLetterValue] = useState({ nickname: "", content: "" });
+
+  function onSubmitLetter(e) {
+    e.preventDefault();
+    setLocalstorageLetters([...localstorageLetters, { ...letterValue, writedTo: selectedMember, id: uuidv4() }]);
+    setLetterValue({ nickname: "", content: "" });
+  }
+
+  return (
+    <Form onSubmit={onSubmitLetter}>
+      <label htmlFor="input_nickname">닉네임 </label>
+      <NickNameInput
+        maxLength={20}
+        placeholder="최대 20자 까지 작성이 가능합니다."
+        id="input_nickname"
+        style={{ color: "black" }}
+        onChange={(e) => setLetterValue((prev) => ({ ...prev, nickname: e.target.value }))}
+        value={letterValue.nickname}
+      />
+      <label htmlFor="textarea_content">내용</label>
+      <ContentArea
+        maxLength={100}
+        placeholder="최대 100자까지 작성 가능합니다."
+        id={"textarea_content"}
+        onChange={(e) => setLetterValue((prev) => ({ ...prev, content: e.target.value }))}
+        value={letterValue.content}
+      />
+      <button>Submit</button>
+    </Form>
+  );
+}

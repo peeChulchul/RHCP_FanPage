@@ -32,6 +32,14 @@ const GlobalStyles = createGlobalStyle`
     box-sizing: border-box;
     color: var(--color-text);
     }
+    button{
+        background-color: transparent;
+        border:none;
+        padding:0px;
+    }
+    body{
+        background-color: var(--color-bg);
+    }
 `;
 
 export default GlobalStyles;

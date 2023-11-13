@@ -3,10 +3,10 @@ import styled from "styled-components";
 import Letter from "./letter";
 
 const Container = styled.div`
-  width: "100%";
-  display: "grid";
-  grid-template-columns: "repeat(4,minmax(0, 1fr))";
-  gap: "12px";
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: calc(var(--spacing) * 2);
 `;
 
 export default function Letters({ selectedLetter }) {

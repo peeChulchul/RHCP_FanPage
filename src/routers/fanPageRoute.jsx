@@ -1,6 +1,7 @@
 import App from "App";
 import Layout from "page/layout/view";
 import PageMember from "page/member/view";
+import LetterDetailPage from "page/member/view/letter-detail-page";
 import { createBrowserRouter } from "react-router-dom";
 
 export const fanPageRoute = createBrowserRouter([
@@ -17,7 +18,7 @@ export const fanPageRoute = createBrowserRouter([
           },
           {
             path: ":name/:letterId",
-            element: <>편지다</>
+            element: <LetterDetailPage />
           }
         ]
       },

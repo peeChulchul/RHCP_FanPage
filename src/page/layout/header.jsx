@@ -1,23 +1,37 @@
 import React from "react";
 import styled from "styled-components";
 import headerBgUrl from "assets/img/album/header_art.avif";
+import membersBgUtl from "assets/img/member/members.webp";
 import { Container } from "components/box";
 import { Logo } from "components/logo";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 
 const Header = styled.header`
-  height: 400px;
-  background-image: url(${headerBgUrl});
+  min-height: 400px;
+  position: relative;
+  color: var(--color-white);
+  background-image: url(${membersBgUtl});
   background-size: cover;
+  background-position: center center;
   background-repeat: no-repeat;
-  background-position: "100% 100%";
-  width: 100%;
+  &:before {
+    opacity: ${(props) => (props.$slected ? "0.5" : "1")};
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--color-black);
+    opacity: 0.4;
+  }
 `;
 
 const Navs = styled.nav`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
 `;
 
 const NavBtnWrapper = styled.div`
@@ -28,15 +42,20 @@ const NavBtnWrapper = styled.div`
 const NavBtn = styled.button``;
 
 const PageName = styled.h1`
+  position: absolute;
   text-align: center;
   font-size: var(--font-xl);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%);
 `;
 
 export default function LayoutHeader() {
   const location = useLocation();
-
+  const params = useParams();
   const title = location.pathname.split("/")[1].toUpperCase();
 
+  console.log(params);
   return (
     <Header>
       <Container>

@@ -38,7 +38,10 @@ const GlobalStyles = createGlobalStyle`
         padding:0px;
     }
     body{
-        background-color: var(--color-bg);
+        /* background-color: var(--color-bg); */
+        position: relative;
+        background: rgb(250,209,215);
+        background: radial-gradient(circle, rgba(250,209,215,1) 26%, rgba(242,215,228,1) 84%);
     }
 `;
 

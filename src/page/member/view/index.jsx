@@ -1,37 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { Outlet, useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
-import BannerUrl from "assets/img/member/members.webp";
-import anthonyUrl from "assets/img/member/Anthony.jpg";
+import anthonyUrl from "assets/img/member/Anthony.webp";
 import fleaUrl from "assets/img/member/Flea.webp";
-import chadUrl from "assets/img/member/Chad-Smith.jpg";
-import johnUrl from "assets/img/member/John-Frusciante.jpg";
-import joshUrl from "assets/img/member/josh-klinghoffer.jpeg";
+import chadUrl from "assets/img/member/Chad.webp";
+import johnUrl from "assets/img/member/John.webp";
+import joshUrl from "assets/img/member/Josh.webp";
 import mockData from "data/mockdata.json";
 import { Container } from "components/box";
-import Letter from "../letter";
 import LetterFrom from "../letterform";
 import useLocalstorage from "utils/hooks/useLocalstorage";
 import Letters from "../letters";
-
-const Banner = styled.div`
-  min-height: 500px;
-  position: relative;
-  background-color: ${(props) => (props.$slected ? "var(--color-black)" : "tranparent")};
-  &:after {
-    opacity: ${(props) => (props.$slected ? "0.5" : "1")};
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: url(${BannerUrl});
-    background-size: cover;
-    background-position: center center;
-    background-repeat: no-repeat;
-  }
-`;
 
 const MemberImgs = styled.div`
   display: grid;
@@ -48,7 +27,7 @@ const MemberCard = styled.div`
   transition: all 0.3s linear;
   &:hover {
     border-color: ${(props) => (props.$slected ? "var(--color-accent)" : "var(--color-primary-alt)")};
-    transform: scale(0.9);
+    transform: ${(props) => (props.$slected ? "" : "scale(0.9)")};
   }
   &:after {
     content: "";
@@ -69,11 +48,7 @@ export default function PageMember() {
   const [selectedMember, setSelectedMember] = useState();
   const [localstorageLetters, setLocalstorageLetters] = useLocalstorage("letters", mockData);
   const { name } = useParams();
-
-  const mockDatas = mockData.filter((mockData) => mockData.writedTo === name);
   const selectedLetter = localstorageLetters.filter((letter) => letter.writedTo === name);
-
-  console.log(selectedLetter);
   const navigate = useNavigate();
 
   const memberArray = [
@@ -98,8 +73,6 @@ export default function PageMember() {
 
   return (
     <section>
-      {/* 배너 */}
-      <Banner $slected={Boolean(selectedMember)}></Banner>
       <Container>
         {/* 맴버 이미지카드 */}
         <MemberImgs>
@@ -124,7 +97,7 @@ export default function PageMember() {
         {/* 편지 미리보기 */}
         <Letters selectedLetter={selectedLetter.length > 0 ? selectedLetter : []}></Letters>
       </Container>
-      <Outlet />
+      <Outlet context={{ localstorageLetters, setLocalstorageLetters }} />
     </section>
   );
 }

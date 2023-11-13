@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -8,15 +9,27 @@ const Container = styled.div`
   padding: calc(var(--spacing) * 2) calc(var(--spacing) * 4);
   display: flex;
   flex-direction: column;
-  gap: var(--spacing);
+  gap: calc(var(--spacing) * 2);
 
-  /* 그림자 */
+  /* 그림자 추가필요*/
+`;
+
+const AvaterBox = styled.div`
+  display: flex;
+  align-items: center;
+  gap: calc(var(--spacing) * 2);
+  h1 {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
 `;
 
 const Avatar = styled.div`
   border-radius: 50%;
   width: 50px;
   height: 50px;
+  flex-shrink: 0;
   background-color: white;
 `;
 
@@ -29,13 +42,16 @@ const Content = styled.div`
 `;
 
 export default function Letter({ letter }) {
-  const { avatar, content, createdAt, id, nickname, writedTo } = letter;
+  const { avatar, content, id, nickname } = letter;
+  const params = useParams();
+  const navigate = useNavigate();
+
   return (
-    <Container style={{}}>
-      <div style={{ display: "flex", alignItems: "center" }}>
+    <Container onClick={() => navigate(`${params.name}/${id}`)}>
+      <AvaterBox>
         <Avatar />
         <h1>{nickname}</h1>
-      </div>
+      </AvaterBox>
       <Content>{content}</Content>
     </Container>
   );

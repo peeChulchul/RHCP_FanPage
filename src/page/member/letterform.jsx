@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { getYMDHM } from "utils/format-data";
 import { v4 as uuidv4 } from "uuid";
 const Form = styled.form`
   max-width: 500px;
@@ -30,7 +31,10 @@ export default function LetterForm({ localstorageLetters, setLocalstorageLetters
 
   function onSubmitLetter(e) {
     e.preventDefault();
-    setLocalstorageLetters([...localstorageLetters, { ...letterValue, writedTo: selectedMember, id: uuidv4() }]);
+    setLocalstorageLetters([
+      ...localstorageLetters,
+      { ...letterValue, writedTo: selectedMember, id: uuidv4(), createdAt: getYMDHM() }
+    ]);
     setLetterValue({ nickname: "", content: "" });
   }
 

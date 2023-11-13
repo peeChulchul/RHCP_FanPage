@@ -1,6 +1,7 @@
-import { useMemberContext } from "context/member-context";
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { addLetter } from "redux/modules/letter";
 import styled from "styled-components";
 import { getYMDHM } from "utils/format-data";
 import { v4 as uuidv4 } from "uuid";
@@ -36,15 +37,18 @@ const NickNameInput = styled.input`
 
 export default function LetterForm() {
   const [letterValue, setLetterValue] = useState({ nickname: "", content: "" });
-  const { localstorageLetters, setLocalstorageLetters } = useMemberContext();
+  // const { localstorageLetters, setLocalstorageLetters } = useMemberContext();
+  const localstorageLetters = useSelector((modules) => modules.modulesLetters);
+  const dispatch = useDispatch();
   const { name } = useParams();
 
   function onSubmitLetter(e) {
     e.preventDefault();
-    setLocalstorageLetters([
-      ...localstorageLetters,
-      { ...letterValue, writedTo: name, id: uuidv4(), createdAt: getYMDHM() }
-    ]);
+    dispatch(addLetter({ ...letterValue, writedTo: name, id: uuidv4(), createdAt: getYMDHM() }));
+    // setLocalstorageLetters([
+    //   ...localstorageLetters,
+    //   { ...letterValue, writedTo: name, id: uuidv4(), createdAt: getYMDHM() }
+    // ]);
     setLetterValue({ nickname: "", content: "" });
   }
 

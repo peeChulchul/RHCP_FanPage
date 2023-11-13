@@ -6,6 +6,8 @@ import { BiSolidSave } from "react-icons/bi";
 import { useNavigate, useParams } from "react-router-dom";
 import { getYMDHM } from "utils/format-data";
 import logoUrl from "assets/img/logo/logo.png";
+import { useDispatch } from "react-redux";
+import { deleteLetter, modifyLetter } from "redux/modules/letter";
 
 const Container = styled.section`
   width: 500px;
@@ -100,26 +102,18 @@ export default function Modal({ selectedLetter, setLocalstorageLetters }) {
   const [nickNameValue, setNickNameValue] = useState(nickname);
   const navigate = useNavigate();
   const params = useParams();
+  const dispatch = useDispatch();
 
   function onClickDelete() {
-    setLocalstorageLetters((prev) => {
-      const newState = prev.filter((letter) => letter.id !== id);
-      return newState;
-    });
+    dispatch(deleteLetter(id));
+
     navigate(`../${params.name}`);
   }
 
   function onClickSave() {
-    setLocalstorageLetters((prev) => {
-      const newState = prev.map((letter) => {
-        if (letter.id === id) {
-          return { ...letter, nickname: nickNameValue, content: contentValue, createdAt: getYMDHM() };
-        }
-        return letter;
-      });
-
-      return newState;
-    });
+    dispatch(
+      modifyLetter({ id, nickname: nickNameValue, content: contentValue, createdAt: getYMDHM(), writedTo, avatar })
+    );
     setIsModify(false);
   }
 

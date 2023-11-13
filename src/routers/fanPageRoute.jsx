@@ -1,9 +1,8 @@
-import App from "App";
-import { MemberContextProvider } from "context/member-context";
 import Layout from "page/layout/view";
 import PageMember from "page/member/view";
 import LetterDetailPage from "page/member/view/letter-detail-page";
 import { createBrowserRouter } from "react-router-dom";
+import { ReduxProvider } from "redux/config/config-store";
 
 export const fanPageRoute = createBrowserRouter([
   {
@@ -12,9 +11,9 @@ export const fanPageRoute = createBrowserRouter([
       {
         path: "/member/",
         element: (
-          <MemberContextProvider>
+          <ReduxProvider>
             <PageMember />
-          </MemberContextProvider>
+          </ReduxProvider>
         ),
         children: [
           {

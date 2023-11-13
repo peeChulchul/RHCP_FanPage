@@ -3,8 +3,9 @@ import styled from "styled-components";
 import { BsFillPencilFill } from "react-icons/bs";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import { BiSolidSave } from "react-icons/bi";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getYMDHM } from "utils/format-data";
+import logoUrl from "assets/img/logo/logo.png";
 
 const Container = styled.section`
   width: 500px;
@@ -60,9 +61,9 @@ const ModalButtons = styled.div`
   margin-left: auto;
   display: flex;
   gap: calc(var(--spacing) * 4);
-
   button {
     font-size: var(--font-md);
+    cursor: pointer;
   }
   svg {
     fill: var(--color-primary-alt);
@@ -74,7 +75,10 @@ const Avatar = styled.div`
   width: 50px;
   height: 50px;
   flex-shrink: 0;
-  background-color: white;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: ${(props) => `url(${props.$img})`};
 `;
 
 const ContentArea = styled.textarea`
@@ -90,12 +94,14 @@ const ContentArea = styled.textarea`
 `;
 
 export default function Modal({ selectedLetter, setLocalstorageLetters }) {
-  const { nickname, createdAt, content, writedTo, id, avatar } = selectedLetter;
+  const { nickname, createdAt, content, writedTo, id, avatar = logoUrl } = selectedLetter;
   const [isModify, setIsModify] = useState(false);
   const [contentValue, setContentValue] = useState(`${content}`);
   const [nickNameValue, setNickNameValue] = useState(nickname);
   const navigate = useNavigate();
   const params = useParams();
+
+  console.log(avatar);
 
   function onClickDelete() {
     setLocalstorageLetters((prev) => {
@@ -133,7 +139,7 @@ export default function Modal({ selectedLetter, setLocalstorageLetters }) {
         <>
           <ModalTop>
             <AvaterWrapper>
-              <Avatar />
+              <Avatar $img={avatar} />
               <input onChange={(e) => setNickNameValue(e.target.value)} value={nickNameValue} />
             </AvaterWrapper>
           </ModalTop>
@@ -154,7 +160,7 @@ export default function Modal({ selectedLetter, setLocalstorageLetters }) {
         <>
           <ModalTop>
             <AvaterWrapper>
-              <Avatar />
+              <Avatar $img={avatar} />
               <h1>{nickname}</h1>
             </AvaterWrapper>
             <p>{createdAt}</p>

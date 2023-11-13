@@ -2,12 +2,18 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { getYMDHM } from "utils/format-data";
 import { v4 as uuidv4 } from "uuid";
+
 const Form = styled.form`
   max-width: 500px;
-  margin: 0 auto;
   display: flex;
   flex-direction: column;
   gap: calc(var(--spacing) * 2);
+  margin: calc(var(--spacing) * 10) auto;
+
+  button {
+    cursor: pointer;
+    padding: calc(var(--spacing) * 4) 0;
+  }
 `;
 
 const ContentArea = styled.textarea`

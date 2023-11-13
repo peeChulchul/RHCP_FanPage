@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
+import logoUrl from "assets/img/logo/logo.png";
 
 const Container = styled.div`
   filter: brightness(105%);
@@ -30,7 +31,10 @@ const Avatar = styled.div`
   width: 50px;
   height: 50px;
   flex-shrink: 0;
-  background-color: white;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: ${(props) => `url(${props.$img})`};
 `;
 
 const Content = styled.div`
@@ -42,14 +46,14 @@ const Content = styled.div`
 `;
 
 export default function Letter({ letter }) {
-  const { avatar, content, id, nickname } = letter;
+  const { avatar = logoUrl, content, id, nickname } = letter;
   const params = useParams();
   const navigate = useNavigate();
 
   return (
     <Container onClick={() => navigate(`${params.name}/${id}`)}>
       <AvaterBox>
-        <Avatar />
+        <Avatar $img={avatar} />
         <h1>{nickname}</h1>
       </AvaterBox>
       <Content>{content}</Content>

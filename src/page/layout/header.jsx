@@ -14,6 +14,7 @@ const Header = styled.header`
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
+  padding: calc(var(--spacing) * 6) 0;
   &:before {
     opacity: ${(props) => (props.$slected ? "0.5" : "1")};
     content: "";
@@ -39,7 +40,9 @@ const NavBtnWrapper = styled.div`
   gap: calc(var(--spacing) * 4);
 `;
 
-const NavBtn = styled.button``;
+const NavBtn = styled.button`
+  cursor: pointer;
+`;
 
 const PageName = styled.h1`
   position: absolute;
@@ -60,7 +63,7 @@ export default function LayoutHeader() {
     <Header>
       <Container>
         <Navs>
-          <Logo />
+          <Logo width={"50px"} height={"50px"} />
           <NavBtnWrapper>
             <NavBtn>Member</NavBtn>
             <NavBtn>Music</NavBtn>

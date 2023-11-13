@@ -58,7 +58,6 @@ export default function LayoutHeader() {
   const params = useParams();
   const title = location.pathname.split("/")[1].toUpperCase();
 
-  console.log(params);
   return (
     <Header>
       <Container>

@@ -1,12 +1,11 @@
 import React from "react";
-import { useNavigate, useOutletContext, useParams } from "react-router-dom";
-
+import { useNavigate, useParams } from "react-router-dom";
 import { BackDrop } from "components/box";
 import Modal from "../modal";
+import { useMemberContext } from "context/member-context";
 
 export default function LetterDetailPage() {
-  const { localstorageLetters, setLocalstorageLetters } = useOutletContext();
-
+  const { localstorageLetters, setLocalstorageLetters } = useMemberContext();
   const { name, letterId } = useParams();
   const selectedLetter = localstorageLetters.find((letter) => letter.id === letterId);
   const navigate = useNavigate();

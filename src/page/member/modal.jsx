@@ -101,8 +101,6 @@ export default function Modal({ selectedLetter, setLocalstorageLetters }) {
   const navigate = useNavigate();
   const params = useParams();
 
-  console.log(avatar);
-
   function onClickDelete() {
     setLocalstorageLetters((prev) => {
       const newState = prev.filter((letter) => letter.id !== id);

@@ -1,4 +1,6 @@
+import { useMemberContext } from "context/member-context";
 import React, { useState } from "react";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { getYMDHM } from "utils/format-data";
 import { v4 as uuidv4 } from "uuid";
@@ -32,14 +34,16 @@ const NickNameInput = styled.input`
   }
 `;
 
-export default function LetterForm({ localstorageLetters, setLocalstorageLetters, selectedMember }) {
+export default function LetterForm() {
   const [letterValue, setLetterValue] = useState({ nickname: "", content: "" });
+  const { localstorageLetters, setLocalstorageLetters } = useMemberContext();
+  const { name } = useParams();
 
   function onSubmitLetter(e) {
     e.preventDefault();
     setLocalstorageLetters([
       ...localstorageLetters,
-      { ...letterValue, writedTo: selectedMember, id: uuidv4(), createdAt: getYMDHM() }
+      { ...letterValue, writedTo: name, id: uuidv4(), createdAt: getYMDHM() }
     ]);
     setLetterValue({ nickname: "", content: "" });
   }

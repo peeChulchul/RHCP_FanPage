@@ -1,4 +1,5 @@
 import App from "App";
+import { MemberContextProvider } from "context/member-context";
 import Layout from "page/layout/view";
 import PageMember from "page/member/view";
 import LetterDetailPage from "page/member/view/letter-detail-page";
@@ -10,7 +11,11 @@ export const fanPageRoute = createBrowserRouter([
     children: [
       {
         path: "/member/",
-        element: <PageMember />,
+        element: (
+          <MemberContextProvider>
+            <PageMember />
+          </MemberContextProvider>
+        ),
         children: [
           {
             path: ":name",

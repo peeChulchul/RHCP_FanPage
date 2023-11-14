@@ -62,7 +62,7 @@ const ModalBottom = styled.div`
 const ModalButtons = styled.div`
   margin-left: auto;
   display: flex;
-  gap: calc(var(--spacing) * 4);
+  gap: calc(var(--spacing) * 6);
   button {
     font-size: var(--font-md);
     cursor: pointer;

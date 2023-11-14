@@ -52,11 +52,11 @@ export default function MemberCards() {
   }
 
   const memberArray = [
-    { url: anthonyUrl, name: "anthony" },
-    { url: fleaUrl, name: "flea" },
-    { url: chadUrl, name: "chad" },
-    { url: johnUrl, name: "john" },
-    { url: joshUrl, name: "josh" }
+    { url: anthonyUrl, name: "Anthony" },
+    { url: fleaUrl, name: "Flea" },
+    { url: chadUrl, name: "Chad" },
+    { url: johnUrl, name: "John" },
+    { url: joshUrl, name: "Josh" }
   ];
 
   return (

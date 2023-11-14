@@ -31,6 +31,7 @@ const GlobalStyles = createGlobalStyle`
     * {
     box-sizing: border-box;
     color: var(--color-text);
+    text-decoration: none;
     }
     button{
         background-color: transparent;
@@ -43,7 +44,6 @@ const GlobalStyles = createGlobalStyle`
         background: rgb(250,209,215);
         background: radial-gradient(circle, rgba(250,209,215,1) 26%, rgba(242,215,228,1) 84%);
 
-        /* text-shadow: 4px 3px 0 #36499B; */
 
     }
 `;

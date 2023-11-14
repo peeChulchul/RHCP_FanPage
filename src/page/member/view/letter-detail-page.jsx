@@ -12,7 +12,9 @@ export default function LetterDetailPage() {
 
   return (
     <>
+      {/* 백드롭 */}
       <BackDrop onClick={() => navigate(`../${name}`)} />
+      {/* 모달 */}
       <Modal selectedLetter={selectedLetter} />
     </>
   );

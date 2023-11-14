@@ -1,6 +1,8 @@
+import PageHome from "page/home/view";
 import Layout from "page/layout/view";
 import PageMember from "page/member/view";
 import LetterDetailPage from "page/member/view/letter-detail-page";
+import PageMusic from "page/music/view";
 import { createBrowserRouter } from "react-router-dom";
 import { ReduxProvider } from "redux/config/config-store";
 
@@ -8,6 +10,10 @@ export const fanPageRoute = createBrowserRouter([
   {
     element: <Layout />,
     children: [
+      {
+        path: "/",
+        element: <PageHome />
+      },
       {
         path: "/member/",
         element: (
@@ -26,7 +32,7 @@ export const fanPageRoute = createBrowserRouter([
           }
         ]
       },
-      { path: "/music", element: <>music</> }
+      { path: "/music", element: <PageMusic />, children: [{}] }
     ]
   }
 ]);

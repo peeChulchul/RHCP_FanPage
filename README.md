@@ -1,10 +1,42 @@
-# styled-components 는 CSS in JS 라이브러리 중 하나로 리액트 개발 시 자주 사용되는 방법입니다. 본인이 생각하는 styled-components의 장점과 단점을 말씀해 주세요.
+# 목적 및 기능
 
-* props를 통해 css값을 동적으로 바꿀 수 있는점이 장점인 것 같습니다.
-* 재사용 가능한 컴포넌트를 만들기 유용하고 편하지만 많은 props가 필요한 경우도 있는 것 같고 재사용가능하게 설계하는 것도 생각보다 어려운 것 같습니다. 
+* 레드핫 칠리페퍼스 팬 페이지 만들기
+* 팬레터 작성 및 수정 삭제 (로컬스토리지에 저장)
+* 공식뮤직비디오 재생
+* 앨범 및 수록곡 확인
 
-# props-drilling으로 전체를 먼저 구현하신 다음 context api와 redux로 리팩터링해서 전역 상태 관리를 경험해 보셨습니다. 어떤 상태들을 전역 상태로 관리하셨나요? context나 redux로 전역상태를 관리해봤을 때 어떤 문제를 해결해준다고 느끼셨나요?
+# 주요기능 사용법
+<img width="913" alt="image" src="https://github.com/peeChulchul/S_FanPage/assets/144536397/022700e5-7e87-4be6-a597-cd20fadbcb3a">
 
-* 로컬에 저장된 편지의 작성자, 내용 , 아바타, 받는대상, 작성시간 을 context 및 redux를 통해 전역상태관리를 하였습니다.
-* 부모에서 특정컴포넌트로 값을 내려줄때  수많은 징검다리를 건너야 하는데 이부분을 해결 해 준 것 같습니다. 
-* context의 경우 전역으로 값을 공유 하는 것이 주요기능인 것 같은 느낌을 받았으며 , redux의 경우 전역에서 값을 공유하기도 하지만  공유된 값의 상태를 관리하는 부분이 주된기능인 것 같았습니다.(reducer에서 값의 수정 및 삭제에대한 로직을 몰아둘 수 있었습니다.)
+* 원하는 맴버를 클릭한 뒤 닉네임과 내용을 입력해주시면 아래에 편지가 추가됩니다.
+* 아래의 리듀서를 통해 자동으로 로컬스토리지에 값을 추가하게 됩니다.
+```javascript
+const modulesLetters = (state = localLetters, action) => {
+  switch (action.type) {
+    case MODIFY_LETTER: {
+      const newState = state.map((letter) => {
+        if (letter.id === action.paylod.id) {
+          return { ...action.paylod };
+        }
+        return letter;
+      });
+      localStorage.setItem(LOCAL_KEY, JSON.stringify(newState));
+
+      return newState;
+    }
+    case ADD_LETTER: {
+      localStorage.setItem(LOCAL_KEY, JSON.stringify([...state, { ...action.paylod }]));
+
+      return [...state, { ...action.paylod }];
+    }
+    case DELETE_LETTER: {
+      const newState = state.filter((letter) => letter.id !== action.paylod);
+      localStorage.setItem(LOCAL_KEY, JSON.stringify(newState));
+      return newState;
+    }
+    default: {
+      return state;
+    }
+  }
+};
+```

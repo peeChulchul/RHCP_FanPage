@@ -67,14 +67,15 @@ const EmptyIconBox = styled.div`
 `;
 
 export default function Letters({ selectedLetter }) {
-  const params = useParams();
+  const { name } = useParams();
   const navigate = useNavigate();
+  console.log(name);
 
   return (
     <>
       <LetterContainer>
         {selectedLetter.map(({ id, avatar = logoUrl, content, nickname }) => (
-          <Letter key={id} onClick={() => navigate(`${params.name}/${id}`)}>
+          <Letter key={id} onClick={() => navigate(`${name}/${id}`)}>
             <AvaterBox>
               <Avatar $img={avatar} />
               <h1>{nickname}</h1>
@@ -83,7 +84,7 @@ export default function Letters({ selectedLetter }) {
           </Letter>
         ))}
       </LetterContainer>
-      {selectedLetter.length === 0 && (
+      {selectedLetter.length === 0 && name && (
         <EmptyIconBox>
           <TbMoodCry />
           <h1>Empty...</h1>

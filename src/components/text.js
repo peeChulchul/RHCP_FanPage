@@ -5,10 +5,9 @@ export const AccentText = styled.strong`
   font-weight: bold;
 `;
 
-export const Title = styled.h1`
-  font-size: var(--font-lg);
-  font-size: 3rem;
-  margin: calc(var(--spacing) * 5) auto;
+export const TextShadow = styled.h1`
+  font-size: ${(props) => (props.$fontSize ? props.$fontSize : "var(--font-xl)")};
+  margin: ${(props) => (props.$margin ? props.$margin : "calc(var(--spacing) * 8) 0")};
   font-weight: bold;
   color: var(--color-white);
   text-shadow: -2px 3px 0 var(--color-primary-alt);

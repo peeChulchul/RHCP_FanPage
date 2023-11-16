@@ -45,6 +45,11 @@ const NavBtn = styled.button`
   font-size: var(--font-md);
   font-weight: 600;
   cursor: pointer;
+  &:hover {
+    a {
+      color: var(--color-accent);
+    }
+  }
 `;
 
 const PageName = styled.h1`
@@ -60,22 +65,25 @@ const PageName = styled.h1`
 
 export default function LayoutHeader() {
   const location = useLocation();
-  const locationPathname = location.pathname.split("/")[1].replace(/^[a-z]/, (char) => char.toUpperCase());
+  const locationPathname = location.pathname.split("/")[1];
 
   const title = locationPathname === "" ? "Home" : locationPathname;
 
   const headerBgs = [
     {
       title: "Home",
-      bg: homeBgUrl
+      bg: homeBgUrl,
+      link: "/"
     },
     {
       title: "Member",
-      bg: membersBgUrl
+      bg: membersBgUrl,
+      link: "/Member"
     },
     {
       title: "Music",
-      bg: musicBgUrl
+      bg: musicBgUrl,
+      link: "/Music"
     }
   ];
 
@@ -88,15 +96,11 @@ export default function LayoutHeader() {
             <Logo width={"50px"} height={"50px"} />
           </Link>
           <NavBtnWrapper>
-            <NavBtn>
-              <Link to="/">Home</Link>
-            </NavBtn>
-            <NavBtn>
-              <Link to="member">Member</Link>
-            </NavBtn>
-            <NavBtn>
-              <Link to="music">Music</Link>
-            </NavBtn>
+            {headerBgs.map(({ title, link }) => (
+              <NavBtn key={title}>
+                <Link to={link}>{title}</Link>
+              </NavBtn>
+            ))}
           </NavBtnWrapper>
         </Navs>
         <PageName>{title}</PageName>

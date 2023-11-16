@@ -32,14 +32,10 @@ export default function PageMember() {
   return (
     <section>
       <Container>
-        {/* 맴버 이미지카드 */}
         <MemberCards onClickCard={onClickCard} />
-        {/* 편지 입력폼 */}
         {name && <LetterFrom />}
-        {/* 편지 미리보기 */}
         <Letters selectedLetter={selectedLetter.length > 0 ? selectedLetter : []}></Letters>
       </Container>
-      {/* 편지디테일모달 및 백드롭 */}
       <Outlet />
     </section>
   );

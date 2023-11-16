@@ -51,7 +51,6 @@ export const modulesLetters = (state = localLetters, action) => {
       return [...state, { ...action.paylod }];
     }
     case DELETE_LETTER: {
-      console.log(action.paylod);
       const newState = state.filter((letter) => letter.id !== action.paylod);
       localStorage.setItem(LOCAL_KEY, JSON.stringify(newState));
       return newState;

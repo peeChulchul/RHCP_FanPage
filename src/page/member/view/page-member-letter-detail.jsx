@@ -8,10 +8,5 @@ export default function PageMemberLetterDetail() {
   const { letterId } = useParams();
   const selectedLetter = localstorageLetters.find((letter) => letter.id === letterId);
 
-  return (
-    <>
-      {/* 모달 */}
-      <Modal selectedLetter={selectedLetter} />
-    </>
-  );
+  return <Modal selectedLetter={selectedLetter} />;
 }

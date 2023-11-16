@@ -51,7 +51,6 @@ const Track = styled.div`
   .time {
     opacity: 0.7;
     color: var(--color-black);
-    /* color: var(--color-black); */
   }
 `;
 

@@ -59,14 +59,6 @@ const DotBtns = styled.div`
 export default function OfficalMusicVIdeos() {
   const [viewPage, setViewPage] = useState(0);
 
-  // useEffect(() => {
-  //   const iframes = document.querySelectorAll(".iframe");
-  //   iframes.forEach((iframe) => {
-  //     console.log(iframe);
-  //     iframe.contentWindow.postMessage('{"event":"command","func":"' + "stopVideo" + '","args":""}', "*");
-  //   });
-  // }, [viewPage]);
-
   return (
     <Container>
       <TextShadow>Offical Music Videos</TextShadow>

@@ -1,8 +1,12 @@
 import { RouterProvider } from "react-router-dom";
-import { fanPageRoute } from "routers";
+import { ComponentsFanPageRoute, nestingFanPageRoute } from "routers";
 
 function App() {
-  return <RouterProvider router={fanPageRoute} />;
+  // nesting방식 라우터
+  // return <RouterProvider router={nestingFanPageRoute} />;
+
+  // 컴포넌트방식 라우터
+  return <ComponentsFanPageRoute />;
 }
 
 export default App;

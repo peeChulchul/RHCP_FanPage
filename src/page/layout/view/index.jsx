@@ -9,11 +9,14 @@ const LayoutContainer = styled.div`
   position: relative;
 `;
 
-export default function Layout() {
+export default function Layout({ children }) {
   return (
     <LayoutContainer>
       <LayoutHeader />
-      <Outlet />
+      {/* {nesting사용시 outlet} */}
+      {/* <Outlet /> */}
+
+      {children}
       <ArrowTop />
       <LayoutFooter />
     </LayoutContainer>

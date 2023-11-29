@@ -1,3 +1,3 @@
-import { fanPageRoute } from "./fanPageRoute";
+import { ComponentsFanPageRoute, nestingFanPageRoute } from "./fanPageRoute";
 
-export { fanPageRoute };
+export { ComponentsFanPageRoute, nestingFanPageRoute };

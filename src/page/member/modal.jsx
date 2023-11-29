@@ -133,7 +133,7 @@ const ModalButtons = styled.div`
   }
 `;
 
-export default function Modal({ selectedLetter, setLocalstorageLetters }) {
+export default function Modal({ selectedLetter }) {
   const { nickname, createdAt, content, writedTo, id, avatar = logoUrl } = selectedLetter;
   const [isModify, setIsModify] = useState(false);
   const [contentValue, setContentValue] = useState(`${content}`);

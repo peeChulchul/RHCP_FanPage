@@ -2,10 +2,10 @@ import PageHome from "page/home/view";
 import Layout from "page/layout/view";
 import { PageMember, PageMemberLetterDetail } from "page/member/view";
 import { PageMusic, PageMusicDetail } from "page/music/view";
-import { createBrowserRouter } from "react-router-dom";
+import { BrowserRouter, Route, Routes, createBrowserRouter } from "react-router-dom";
 import { ReduxProvider } from "redux/config/config-store";
 
-export const fanPageRoute = createBrowserRouter([
+export const nestingFanPageRoute = createBrowserRouter([
   {
     element: <Layout />,
     children: [
@@ -44,3 +44,25 @@ export const fanPageRoute = createBrowserRouter([
     ]
   }
 ]);
+
+export function ComponentsFanPageRoute() {
+  return (
+    <BrowserRouter>
+      <ReduxProvider>
+        <Layout>
+          <Routes>
+            <Route path="/" element={<PageHome />} />
+
+            <Route path={"/Member"} element={<PageMember />}>
+              <Route path={":name"} element={null} />
+              <Route path={":name/:letterId"} element={<PageMemberLetterDetail />} />
+            </Route>
+            <Route path={"Music"} element={<PageMusic />}>
+              <Route path={"Music/::albumName"} element={<PageMusicDetail />} />
+            </Route>
+          </Routes>
+        </Layout>
+      </ReduxProvider>
+    </BrowserRouter>
+  );
+}

@@ -69,7 +69,6 @@ const EmptyIconBox = styled.div`
 export default function Letters({ selectedLetter }) {
   const { name } = useParams();
   const navigate = useNavigate();
-  console.log(name);
 
   return (
     <>

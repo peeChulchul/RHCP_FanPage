@@ -19,8 +19,8 @@ const Container = styled(ContainerBox)`
 
 export default function PageMember() {
   const { name } = useParams();
-  const localstorageLetters = useSelector((modules) => modules.modulesLetters);
-  const selectedLetter = localstorageLetters.filter((letter) => letter.writedTo === name);
+  // const localstorageLetters = useSelector((modules) => modules.modulesLetters);
+  // const selectedLetter = localstorageLetters.filter((letter) => letter.writedTo === name);
   const navigate = useNavigate();
 
   function onClickCard(memberName) {
@@ -34,7 +34,7 @@ export default function PageMember() {
       <Container>
         <MemberCards onClickCard={onClickCard} />
         {name && <LetterFrom />}
-        <Letters selectedLetter={selectedLetter.length > 0 ? selectedLetter : []}></Letters>
+        {/* <Letters selectedLetter={selectedLetter.length > 0 ? selectedLetter : []}></Letters> */}
       </Container>
       <Outlet />
     </section>

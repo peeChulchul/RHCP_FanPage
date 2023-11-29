@@ -9,31 +9,16 @@ import logoUrl from "assets/img/logo/logo.png";
 import { useDispatch } from "react-redux";
 import { deleteLetter, modifyLetter } from "redux/modules/letter";
 import { TextShadow } from "components/text";
-
-const BackDrop = styled.div`
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-color: var(--color-black);
-  overflow: hidden;
-  cursor: pointer;
-  z-index: 1;
-`;
+import ModalContainer from "page/common/modal-container";
+import { modalOpen } from "redux/modules/modal";
 
 const Container = styled.section`
   width: 500px;
   height: 500px;
   padding: calc(var(--spacing) * 2) calc(var(--spacing) * 6);
   background-color: var(--color-bg);
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
-  z-index: 2;
   border-radius: 8px;
   box-shadow: 1px 2px 10px var(--color-white);
 `;
@@ -163,67 +148,71 @@ export default function Modal({ selectedLetter }) {
   function onClickBackDrop() {
     if (isModify) {
       return alert("수정중입니다!.");
-    } else return navigate(`../${name}`);
+    } else {
+      return navigate(`../${name}`);
+    }
   }
 
   useEffect(() => {
+    dispatch(modalOpen());
     document.documentElement.style.overflow = "hidden";
 
     return () => {
       document.documentElement.style.overflow = "";
     };
-  }, []);
+  }, [dispatch]);
 
   return (
     <>
-      <BackDrop onClick={onClickBackDrop} />
-      <Container>
-        {isModify ? (
-          <>
-            <ModalTop>
-              <AvaterWrapper>
-                <Avatar $img={avatar} />
-                <input maxLength={20} onChange={(e) => setNickNameValue(e.target.value)} value={nickNameValue} />
-              </AvaterWrapper>
-            </ModalTop>
-            <ModalBottom>
-              <ContentArea
-                maxLength={100}
-                draggable={false}
-                onChange={(e) => setContentValue(e.target.value)}
-                value={contentValue}
-              ></ContentArea>
-            </ModalBottom>
-            <ModalButtons>
-              <button onClick={onClickSave}>
-                <BiSolidSave />
-              </button>
-            </ModalButtons>
-          </>
-        ) : (
-          <>
-            <ModalTop>
-              <AvaterWrapper>
-                <Avatar $img={avatar} />
-                <h1>{nickname}</h1>
-              </AvaterWrapper>
-              <p>{createdAt}</p>
-            </ModalTop>
-            <ModalBottom>
-              <TextStrong>To {writedTo}</TextStrong>
-              <p>{content}</p>
-            </ModalBottom>
-            <ModalButtons>
-              <button onClick={() => setIsModify(true)}>
-                <BsFillPencilFill />
-              </button>
-              <button>
-                <RiDeleteBin6Fill onClick={onClickDelete} />
-              </button>
-            </ModalButtons>
-          </>
-        )}
-      </Container>
+      <ModalContainer onClickBackDrop={onClickBackDrop}>
+        <Container>
+          {isModify ? (
+            <>
+              <ModalTop>
+                <AvaterWrapper>
+                  <Avatar $img={avatar} />
+                  <input maxLength={20} onChange={(e) => setNickNameValue(e.target.value)} value={nickNameValue} />
+                </AvaterWrapper>
+              </ModalTop>
+              <ModalBottom>
+                <ContentArea
+                  maxLength={100}
+                  draggable={false}
+                  onChange={(e) => setContentValue(e.target.value)}
+                  value={contentValue}
+                ></ContentArea>
+              </ModalBottom>
+              <ModalButtons>
+                <button onClick={onClickSave}>
+                  <BiSolidSave />
+                </button>
+              </ModalButtons>
+            </>
+          ) : (
+            <>
+              <ModalTop>
+                <AvaterWrapper>
+                  <Avatar $img={avatar} />
+                  <h1>{nickname}</h1>
+                </AvaterWrapper>
+                <p>{createdAt}</p>
+              </ModalTop>
+              <ModalBottom>
+                <TextStrong>To {writedTo}</TextStrong>
+                <p>{content}</p>
+              </ModalBottom>
+              <ModalButtons>
+                <button onClick={() => setIsModify(true)}>
+                  <BsFillPencilFill />
+                </button>
+                <button>
+                  <RiDeleteBin6Fill onClick={onClickDelete} />
+                </button>
+              </ModalButtons>
+            </>
+          )}
+        </Container>
+      </ModalContainer>
     </>
   );
 }

@@ -67,6 +67,8 @@ export default function LayoutHeader() {
   const location = useLocation();
   const locationPathname = location.pathname.split("/")[1];
 
+  console.log(locationPathname);
+
   const title = locationPathname === "" ? "Home" : locationPathname;
 
   const headerBgs = [
@@ -87,7 +89,7 @@ export default function LayoutHeader() {
     }
   ];
 
-  const { bg } = headerBgs.find((item) => item.title.includes(title));
+  const bg = headerBgs.find((item) => item.title.includes(title))?.bg;
   return (
     <Header $bg={bg}>
       <Container>

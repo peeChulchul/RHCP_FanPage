@@ -73,7 +73,7 @@ export default function Letters({ selectedLetter }) {
   return (
     <>
       <LetterContainer>
-        {selectedLetter.map(({ id, avatar = logoUrl, content, nickname }) => (
+        {selectedLetter.map(({ id, avatar = logoUrl, content, nickname, uid }) => (
           <Letter key={id} onClick={() => navigate(`${name}/${id}`)}>
             <AvaterBox>
               <Avatar $img={avatar} />

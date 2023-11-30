@@ -71,7 +71,7 @@ export function ComponentsFanPageRoute() {
               <Route path={":name/:letterId"} element={<PageMemberLetterDetail />} />
             </Route>
             <Route path={"Music"} element={<PageMusic />}>
-              <Route path={"Music/::albumName"} element={<PageMusicDetail />} />
+              <Route path={":albumName"} element={<PageMusicDetail />} />
             </Route>
           </Routes>
         </Layout>

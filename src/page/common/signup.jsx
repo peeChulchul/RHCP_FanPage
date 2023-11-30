@@ -3,6 +3,7 @@ import useValidationInput from "hooks/useValidationInput";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { FaCheckCircle } from "react-icons/fa";
+import { authServerInstance } from "api/auth";
 
 const Form = styled.form`
   display: flex;
@@ -82,11 +83,24 @@ const Error = styled.div`
 `;
 
 export default function SIGNUP({ setIsLogin }) {
-  const [user, setUser] = useState({ id: "", password: "", passwordConfirm: "", nickName: "" });
+  const [user, setUser] = useState({ id: "", password: "", passwordConfirm: "", nickname: "" });
   const [validText, validation] = useValidationInput(user);
 
   function onSubmitAuth(e) {
     e.preventDefault();
+    (async () => {
+      try {
+        const result = await authServerInstance.post("/register", {
+          id: user.id,
+          password: user.password,
+          nickname: user.nickname
+        });
+        console.log(result.data.message);
+        setIsLogin(true);
+      } catch (error) {
+        console.log(error.response.data);
+      }
+    })();
   }
 
   return (
@@ -98,32 +112,32 @@ export default function SIGNUP({ setIsLogin }) {
         <InputWrapper>
           <AuthInput
             id="nickname_input"
-            value={user.nickName}
-            maxLength={16}
-            minLength={2}
-            onChange={(e) => setUser((prev) => ({ ...prev, nickName: e.target.value }))}
+            value={user.nickname}
+            maxLength={10}
+            minLength={1}
+            onChange={(e) => setUser((prev) => ({ ...prev, nickname: e.target.value }))}
             placeholder="닉네임을 입력해주세요"
             required
-            $validation={validation.nickName}
+            $validation={validation.nickname}
           />
-          {validation.nickName && (
+          {validation.nickname && (
             <SvgBox>
               <FaCheckCircle />
             </SvgBox>
           )}
 
-          <Error>{validText.nickName}</Error>
+          <Error>{validText.nickname}</Error>
         </InputWrapper>
-        <Label htmlFor="id_input">계정</Label>
+        <Label htmlFor="id_input">아이디</Label>
 
         <InputWrapper>
           <AuthInput
             id={"id_input"}
             value={user.id}
-            minLength={3}
-            maxLength={16}
+            minLength={4}
+            maxLength={10}
             onChange={(e) => setUser((prev) => ({ ...prev, id: e.target.value }))}
-            placeholder="계정을 입력해주세요"
+            placeholder="아이디를 입력해주세요"
             required
             $validation={validation.id}
           />
@@ -143,8 +157,8 @@ export default function SIGNUP({ setIsLogin }) {
             placeholder="비밀번호를 입력해주세요"
             type="password"
             autoComplete="pass"
-            minLength={6}
-            maxLength={16}
+            minLength={4}
+            maxLength={15}
             onChange={(e) => setUser((prev) => ({ ...prev, password: e.target.value }))}
             required
             $validation={validation.password}
@@ -165,8 +179,8 @@ export default function SIGNUP({ setIsLogin }) {
             placeholder="비밀번호를 확인해주세요"
             type="password"
             autoComplete="pass"
-            minLength={6}
-            maxLength={16}
+            minLength={4}
+            maxLength={15}
             onChange={(e) => setUser((prev) => ({ ...prev, passwordConfirm: e.target.value }))}
             required
             $validation={validation.passwordConfirm}

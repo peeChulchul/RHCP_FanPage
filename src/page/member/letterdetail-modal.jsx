@@ -10,7 +10,7 @@ import { useDispatch } from "react-redux";
 import { deleteLetter, modifyLetter } from "redux/modules/letter";
 import { TextShadow } from "components/text";
 import ModalContainer from "page/common/modal-container";
-import { modalOpen } from "redux/modules/modal";
+import { modalClose, modalOpen } from "redux/modules/modal";
 
 const Container = styled.section`
   width: 500px;
@@ -118,7 +118,7 @@ const ModalButtons = styled.div`
   }
 `;
 
-export default function Modal({ selectedLetter }) {
+export default function LetterDetailModal({ selectedLetter }) {
   const { nickname, createdAt, content, writedTo, id, avatar = logoUrl } = selectedLetter;
   const [isModify, setIsModify] = useState(false);
   const [contentValue, setContentValue] = useState(`${content}`);
@@ -155,10 +155,9 @@ export default function Modal({ selectedLetter }) {
 
   useEffect(() => {
     dispatch(modalOpen());
-    document.documentElement.style.overflow = "hidden";
 
     return () => {
-      document.documentElement.style.overflow = "";
+      dispatch(modalClose());
     };
   }, [dispatch]);
 

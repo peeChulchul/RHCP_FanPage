@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import ModalContainer from "./modal-container";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { modalOpen } from "redux/modules/modal";
-import { TextShadow } from "components/text";
 import LOGIN from "./login";
 import SIGNUP from "./signup";
 

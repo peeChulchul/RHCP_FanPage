@@ -67,8 +67,6 @@ export default function LayoutHeader() {
   const location = useLocation();
   const locationPathname = location.pathname.split("/")[1];
 
-  console.log(locationPathname);
-
   const title = locationPathname === "" ? "Home" : locationPathname;
 
   const headerBgs = [

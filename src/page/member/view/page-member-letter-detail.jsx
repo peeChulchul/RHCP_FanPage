@@ -1,12 +1,13 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import Modal from "../modal";
+import LetterDetailModal from "../letterdetail-modal";
 import { useSelector } from "react-redux";
 
 export default function PageMemberLetterDetail() {
-  const localstorageLetters = useSelector((modules) => modules.modulesLetters);
-  const { letterId } = useParams();
-  const selectedLetter = localstorageLetters.find((letter) => letter.id === letterId);
+  const { letters } = useSelector((modules) => modules.modulesLetters);
 
-  return <Modal selectedLetter={selectedLetter} />;
+  const { letterId } = useParams();
+  const selectedLetter = letters.find((letter) => letter.id === Number(letterId));
+
+  return <LetterDetailModal selectedLetter={selectedLetter} />;
 }

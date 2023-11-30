@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 
@@ -25,6 +25,15 @@ const Container = styled.div`
 
 export default function ModalContainer({ onClickBackDrop, children }) {
   const { isOpen } = useSelector((modules) => modules.modulesModal);
+
+  useEffect(() => {
+    document.documentElement.style.overflow = "hidden";
+
+    return () => {
+      document.documentElement.style.overflow = "";
+    };
+  }, []);
+
   return (
     <>
       {isOpen && (

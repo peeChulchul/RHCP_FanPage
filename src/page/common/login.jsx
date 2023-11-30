@@ -1,5 +1,8 @@
+import { authServerInstance } from "api/auth";
 import { TextShadow } from "components/text";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { __loginAuth } from "redux/modules/auth";
 import styled from "styled-components";
 
 const Form = styled.form`
@@ -47,11 +50,14 @@ const AuthInput = styled.input`
   }
 `;
 export default function LOGIN({ setIsLogin }) {
-  const [user, setUser] = useState({ id: "", password: "", nickName: "" });
+  const [user, setUser] = useState({ id: "", password: "", nickname: "" });
+  const dispatch = useDispatch();
 
   function onSubmitAuth(e) {
     e.preventDefault();
+    dispatch(__loginAuth({ id: user.id, password: user.password, nickname: user.nickname }));
   }
+
   return (
     <div>
       <TextShadow $margin={"24px 0px"}>로그인</TextShadow>
@@ -62,6 +68,8 @@ export default function LOGIN({ setIsLogin }) {
           onChange={(e) => {
             setUser((prev) => ({ ...prev, id: e.target.value }));
           }}
+          minLength={4}
+          maxLength={10}
           type="text"
           placeholder="계정을 입력해주세요"
           required
@@ -69,6 +77,8 @@ export default function LOGIN({ setIsLogin }) {
 
         <Label>비밀번호</Label>
         <AuthInput
+          minLength={4}
+          maxLength={15}
           value={user.password}
           onChange={(e) => {
             setUser((prev) => ({ ...prev, password: e.target.value }));

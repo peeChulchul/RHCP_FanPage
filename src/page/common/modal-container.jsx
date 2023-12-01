@@ -12,7 +12,7 @@ const BackDrop = styled.div`
   background-color: var(--color-black);
   overflow: hidden;
   cursor: pointer;
-  z-index: 1;
+  z-index: 3;
 `;
 
 const Container = styled.div`
@@ -20,7 +20,7 @@ const Container = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 2;
+  z-index: 4;
 `;
 
 export default function ModalContainer({ onClickBackDrop, children }) {

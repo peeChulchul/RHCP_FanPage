@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 
 export default function useValidationInput(currentValue) {
   const [validText, setValidText] = useState({
-    nickName: null,
+    nickname: null,
     id: null,
     password: null,
     passwordConfirm: null
   });
   const [validation, setValidation] = useState({
-    nickName: false,
+    nickname: false,
     id: false,
     password: false,
     passwordConfirm: false
@@ -16,17 +16,17 @@ export default function useValidationInput(currentValue) {
 
   useEffect(() => {
     const exp = /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{1,10}$/;
-    if (currentValue.nickName === "") {
-      return setValidation((prev) => ({ ...prev, nickName: false }));
+    if (currentValue.nickname === "") {
+      return setValidation((prev) => ({ ...prev, nickname: false }));
     }
-    if (!exp.test(currentValue.nickName)) {
-      setValidText((prev) => ({ ...prev, nickName: "특수문자 및 초성, 모음 사용은 불가능합니다." }));
-      setValidation((prev) => ({ ...prev, nickName: false }));
+    if (!exp.test(currentValue.nickname)) {
+      setValidText((prev) => ({ ...prev, nickname: "특수문자 및 초성, 모음 사용은 불가능합니다." }));
+      setValidation((prev) => ({ ...prev, nickname: false }));
     } else {
-      setValidation((prev) => ({ ...prev, nickName: true }));
-      setValidText((prev) => ({ ...prev, nickName: null }));
+      setValidation((prev) => ({ ...prev, nickname: true }));
+      setValidText((prev) => ({ ...prev, nickname: null }));
     }
-  }, [currentValue.nickName]);
+  }, [currentValue.nickname]);
 
   useEffect(() => {
     const exp = /^[a-zA-Z0-9]{4,10}$/;

@@ -6,8 +6,8 @@ import { BiSolidSave } from "react-icons/bi";
 import { useNavigate, useParams } from "react-router-dom";
 import { getYMDHM } from "utils/format-data";
 import logoUrl from "assets/img/logo/logo.png";
-import { useDispatch } from "react-redux";
-import { deleteLetter, modifyLetter } from "redux/modules/letter";
+import { useDispatch, useSelector } from "react-redux";
+import { __deleteLetter, __modifyLetter } from "redux/modules/letter";
 import { TextShadow } from "components/text";
 import ModalContainer from "page/common/modal-container";
 import { modalClose, modalOpen } from "redux/modules/modal";
@@ -119,10 +119,10 @@ const ModalButtons = styled.div`
 `;
 
 export default function LetterDetailModal({ selectedLetter }) {
-  const { nickname, createdAt, content, writedTo, id, avatar = logoUrl } = selectedLetter;
+  const { nickname, createdAt, content, writedTo, id, avatar = logoUrl, uid } = selectedLetter;
+  const { currentUser } = useSelector((modules) => modules.modulesAuth);
   const [isModify, setIsModify] = useState(false);
   const [contentValue, setContentValue] = useState(`${content}`);
-  const [nickNameValue, setNickNameValue] = useState(nickname);
   const navigate = useNavigate();
   const { name } = useParams();
   const dispatch = useDispatch();
@@ -130,7 +130,7 @@ export default function LetterDetailModal({ selectedLetter }) {
   function onClickDelete() {
     const agreed = window.confirm("정말로 삭제하시겠습니까?");
     if (agreed) {
-      dispatch(deleteLetter(id));
+      dispatch(__deleteLetter(id));
       navigate(`../${name}`);
     } else return;
   }
@@ -140,7 +140,14 @@ export default function LetterDetailModal({ selectedLetter }) {
       return alert("수정된 내용이 없습니다.");
     }
     dispatch(
-      modifyLetter({ id, nickname: nickNameValue, content: contentValue, createdAt: getYMDHM(), writedTo, avatar })
+      __modifyLetter({
+        id,
+        nickname: currentUser.nickname,
+        content: contentValue,
+        createdAt: getYMDHM(),
+        writedTo,
+        avatar
+      })
     );
     setIsModify(false);
   }
@@ -154,6 +161,7 @@ export default function LetterDetailModal({ selectedLetter }) {
   }
 
   useEffect(() => {
+    console.log("범인임");
     dispatch(modalOpen());
 
     return () => {
@@ -170,7 +178,7 @@ export default function LetterDetailModal({ selectedLetter }) {
               <ModalTop>
                 <AvaterWrapper>
                   <Avatar $img={avatar} />
-                  <input maxLength={20} onChange={(e) => setNickNameValue(e.target.value)} value={nickNameValue} />
+                  <h1>{currentUser.nickname}</h1>
                 </AvaterWrapper>
               </ModalTop>
               <ModalBottom>
@@ -200,14 +208,16 @@ export default function LetterDetailModal({ selectedLetter }) {
                 <TextStrong>To {writedTo}</TextStrong>
                 <p>{content}</p>
               </ModalBottom>
-              <ModalButtons>
-                <button onClick={() => setIsModify(true)}>
-                  <BsFillPencilFill />
-                </button>
-                <button>
-                  <RiDeleteBin6Fill onClick={onClickDelete} />
-                </button>
-              </ModalButtons>
+              {currentUser.id === uid && (
+                <ModalButtons>
+                  <button onClick={() => setIsModify(true)}>
+                    <BsFillPencilFill />
+                  </button>
+                  <button>
+                    <RiDeleteBin6Fill onClick={onClickDelete} />
+                  </button>
+                </ModalButtons>
+              )}
             </>
           )}
         </Container>

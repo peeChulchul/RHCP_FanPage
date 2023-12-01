@@ -7,29 +7,32 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { modalOpen } from "redux/modules/modal";
 import AUTH from "page/common/auth";
+import { __getAuth } from "redux/modules/auth";
 
 const LayoutContainer = styled.div`
   position: relative;
 `;
 
 export default function Layout({ children }) {
-  const { isOpen } = useSelector((modules) => modules.modulesModal);
   const dispatch = useDispatch();
-
   const { isLoading, isError, error, currentUser } = useSelector((modules) => modules.modulesAuth);
 
-  // useEffect(() => {
-  //   dispatch(modalOpen());
-  // }, []);
+  useEffect(() => {
+    const sessionAUTH = JSON.parse(sessionStorage.getItem("AUTH"));
+    if (sessionAUTH === null) return;
 
-  console.log(Object.keys(currentUser).length);
+    if (sessionAUTH) {
+      const { accessToken } = JSON.parse(sessionStorage.getItem("AUTH"));
+      dispatch(__getAuth(accessToken));
+    }
+  }, [dispatch, currentUser.accessToken]);
+
   return (
     <LayoutContainer>
-      <LayoutHeader />
       {Object.keys(currentUser).length > 0 ? null : <AUTH />}
+      <LayoutHeader />
       {/* {nesting사용시 outlet} */}
       {/* <Outlet /> */}
-
       {children}
       <ArrowTop />
       <LayoutFooter />

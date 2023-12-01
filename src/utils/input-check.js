@@ -1,10 +1,4 @@
-export function submitchecker({ nickname, content, nickNameRef, contentRef }) {
-  if (nickname.trim() === "") {
-    alert("닉네임을 입력해주세요");
-    nickNameRef.current.focus();
-    return false;
-  }
-
+export function submitchecker({ content, contentRef }) {
   if (content.trim() === "") {
     alert("내용을 입력해주세요");
     contentRef.current.focus();

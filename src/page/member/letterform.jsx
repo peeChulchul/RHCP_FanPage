@@ -1,8 +1,8 @@
 import { TextShadow } from "components/text";
 import React, { useRef, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { addLetter } from "redux/modules/letter";
+import { __addLetters } from "redux/modules/letter";
 import styled from "styled-components";
 import { getYMDHM } from "utils/format-data";
 import { submitchecker } from "utils/input-check";
@@ -10,7 +10,7 @@ import { v4 as uuidv4 } from "uuid";
 
 const Form = styled.form`
   width: 100%;
-  max-width: 500px;
+  max-width: 600px;
   display: flex;
   flex-direction: column;
   gap: calc(var(--spacing) * 2);
@@ -34,16 +34,6 @@ const InputLabel = styled(TextShadow)`
   font-size: var(--font-lg);
 `;
 
-const NickNameInput = styled.input`
-  padding: calc(var(--spacing) * 2);
-  font-size: var(--font-md);
-  font-weight: bold;
-  color: var(--color-black);
-  &:focus {
-    outline: 3px solid var(--color-primary-alt);
-  }
-`;
-
 const ContentArea = styled.textarea`
   resize: none;
   color: var(--color-black);
@@ -55,40 +45,39 @@ const ContentArea = styled.textarea`
 `;
 
 export default function LetterForm() {
-  const [letterValue, setLetterValue] = useState({ nickname: "", content: "" });
+  const [letterValue, setLetterValue] = useState({ content: "" });
+  const { currentUser } = useSelector((modules) => modules.modulesAuth);
   const dispatch = useDispatch();
   const { name } = useParams();
-  const nickNameRef = useRef(null);
   const contentRef = useRef(null);
 
   function onSubmitLetter(e) {
-    const { nickname, content } = letterValue;
+    const { content } = letterValue;
     e.preventDefault();
-    const inputCheck = submitchecker({ nickname, content, nickNameRef, contentRef });
+    const inputCheck = submitchecker({ content, contentRef });
 
     if (inputCheck) {
-      dispatch(addLetter({ ...letterValue, writedTo: name, id: uuidv4(), createdAt: getYMDHM() }));
+      dispatch(
+        __addLetters({
+          content,
+          nickname: currentUser.nickname,
+          writedTo: name,
+          id: uuidv4(),
+          createdAt: getYMDHM(),
+          uid: currentUser.id,
+          avatar: currentUser.avatar
+        })
+      );
       setLetterValue({ nickname: "", content: "" });
-      nickNameRef.current.focus();
     } else return;
   }
 
   return (
     <Form onSubmit={onSubmitLetter}>
       <InputLabel as={"label"} htmlFor="input_nickname">
-        닉네임
+        {name}에게 편지를 작성해보세요
       </InputLabel>
-      <NickNameInput
-        ref={nickNameRef}
-        maxLength={20}
-        placeholder="최대 20자 까지 작성이 가능합니다."
-        id="input_nickname"
-        onChange={(e) => setLetterValue((prev) => ({ ...prev, nickname: e.target.value }))}
-        value={letterValue.nickname}
-      />
-      <InputLabel ref={contentRef} as={"label"} htmlFor="textarea_content">
-        내용
-      </InputLabel>
+
       <ContentArea
         maxLength={200}
         placeholder="최대 200자까지 작성 가능합니다."

@@ -21,9 +21,7 @@ const Container = styled(ContainerBox)`
 export default function PageMember() {
   const { name } = useParams();
   const { isLoading, isError, error, letters } = useSelector((modules) => modules.modulesLetters);
-
   const dispatch = useDispatch();
-
   const selectedLetter = isLoading ? [] : letters.filter((letter) => letter.writedTo === name);
   const navigate = useNavigate();
 
@@ -31,12 +29,15 @@ export default function PageMember() {
     dispatch(__getLetters());
   }, [dispatch]);
 
+  console.log("랜더링..");
+  console.log(letters);
   function onClickCard(memberName) {
     if (name === memberName) {
       return;
     }
     navigate(`./${memberName}`);
   }
+
   return (
     <section>
       <Container>

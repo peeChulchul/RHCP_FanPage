@@ -3,6 +3,7 @@ import PageHome from "page/home/view";
 import Layout from "page/layout/view";
 import { PageMember, PageMemberLetterDetail } from "page/member/view";
 import { PageMusic, PageMusicDetail } from "page/music/view";
+import PageMyPage from "page/mypage/view";
 import { BrowserRouter, Route, Routes, createBrowserRouter } from "react-router-dom";
 import { ReduxProvider } from "redux/config/config-store";
 
@@ -52,20 +53,12 @@ export const nestingFanPageRoute = createBrowserRouter([
 
 export function ComponentsFanPageRoute() {
   return (
-    <BrowserRouter>
-      <ReduxProvider>
+    <ReduxProvider>
+      <BrowserRouter>
         <Layout>
           <Routes>
             <Route path="/" element={<PageHome />} />
-            <Route
-              path="/test"
-              element={
-                <>
-                  <AUTH />
-                </>
-              }
-            />
-
+            <Route path="/MyPage/:uid" element={<PageMyPage />} />
             <Route path={"/Member"} element={<PageMember />}>
               <Route path={":name"} element={null} />
               <Route path={":name/:letterId"} element={<PageMemberLetterDetail />} />
@@ -75,7 +68,7 @@ export function ComponentsFanPageRoute() {
             </Route>
           </Routes>
         </Layout>
-      </ReduxProvider>
-    </BrowserRouter>
+      </BrowserRouter>
+    </ReduxProvider>
   );
 }

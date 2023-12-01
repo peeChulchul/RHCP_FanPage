@@ -3,7 +3,7 @@ import { authServerInstance } from "api/auth";
 const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
 
 const initialState = {
-  isLoading: false,
+  isLoading: true,
   isError: false,
   error: null,
   currentUser: {},
@@ -27,7 +27,6 @@ export const __getAuth = createAsyncThunk("GET_AUTH", async (payload, thunkAPI) 
         Authorization: `Bearer ${payload}`
       }
     });
-    console.log(response.data);
     return thunkAPI.fulfillWithValue(response.data);
   } catch (error) {
     console.log(error);
@@ -46,7 +45,6 @@ export const __modifyAuth = createAsyncThunk("MODIFY_AUTH", async (payload, thun
         Authorization: `Bearer ${payload.accesToken}`
       }
     });
-    console.log(response);
     return thunkAPI.fulfillWithValue(response.data);
   } catch (error) {
     return thunkAPI.rejectWithValue(error);
@@ -68,10 +66,9 @@ const modulesAuth = createSlice({
         state.isLoading = true;
       })
       .addCase(__loginAuth.fulfilled, (state, action) => {
-        state.isLoading = false;
-        console.log("로그인 (최신 토큰)");
         sessionStorage.setItem("AUTH", JSON.stringify(action.payload));
         state.currentUser = action.payload;
+        state.isLoading = false;
       })
       .addCase(__loginAuth.rejected, (state, action) => {
         state.isLoading = false;
@@ -82,26 +79,24 @@ const modulesAuth = createSlice({
         state.isLoading = true;
       })
       .addCase(__getAuth.fulfilled, (state, action) => {
-        console.log("로컬데이터로 정보 갱신");
-        state.isLoading = false;
         state.currentUser = action.payload;
         const accesToken = JSON.parse(sessionStorage.getItem("AUTH"));
         state.currentUser.accesToken = accesToken.accessToken;
+        state.isLoading = false;
       })
       .addCase(__getAuth.rejected, (state, action) => {
-        state.isLoading = false;
         state.isError = true;
         state.error = action.payload;
+        state.isLoading = false;
       })
 
       .addCase(__modifyAuth.pending, (state, action) => {
         state.isLoading = true;
       })
       .addCase(__modifyAuth.fulfilled, (state, action) => {
-        state.isLoading = false;
         state.currentUser.avatar = action.payload.avatar ? action.payload.avatar : state.currentUser.avatar;
         state.currentUser.nickname = action.payload.nickname;
-        console.log("계정 수정");
+        state.isLoading = false;
       })
       .addCase(__modifyAuth.rejected, (state, action) => {
         state.isLoading = false;

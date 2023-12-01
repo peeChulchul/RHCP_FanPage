@@ -49,7 +49,7 @@ export default function PageMyPage() {
   return (
     <Container>
       <TextShadow>{currentUser.id}</TextShadow>
-      <ModifyAvatar currentUser={currentUser} avatar={currentUser.avatar} />
+      <ModifyAvatar isLoading={isLoading} currentUser={currentUser} avatar={currentUser.avatar} />
 
       {modifyNickName ? (
         <ModifyNickName setModifyNickName={setModifyNickName} currentUser={currentUser} />

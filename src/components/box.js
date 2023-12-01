@@ -1,4 +1,5 @@
-const { default: styled } = require("styled-components");
+import { styled } from "styled-components";
+import logoUrl from "assets/img/logo/logo.png";
 
 export const Container = styled.div`
   max-width: 1200px;
@@ -26,5 +27,5 @@ export const Avatar = styled.div`
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
-  background-image: ${(props) => `url(${props.$img})`};
+  background-image: ${(props) => (props.$img ? `url(${props.$img})` : `url(${logoUrl})`)};
 `;

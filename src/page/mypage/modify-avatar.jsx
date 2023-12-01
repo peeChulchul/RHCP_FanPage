@@ -4,6 +4,7 @@ import { FaFileImage } from "react-icons/fa6";
 import defaultAvatar from "assets/img/etc/default_avatar.webp";
 import { useDispatch } from "react-redux";
 import { __modifyAuth } from "redux/modules/auth";
+import { __modifyLetterAuth } from "redux/modules/letter";
 
 const Avatar = styled.div`
   width: 300px;
@@ -41,10 +42,15 @@ const PropertyWrapper = styled.div`
     display: none;
   }
 `;
-export default function ModifyAvatar({ currentUser, avatar }) {
+export default function ModifyAvatar({ currentUser, avatar, isLoading }) {
   const [currentAvatar, setCurrentAvatar] = useState(null);
   const dispatch = useDispatch();
   const fileUploadRef = useRef();
+
+  useEffect(() => {
+    if (isLoading) return;
+    dispatch(__modifyLetterAuth(currentUser));
+  }, [currentUser]);
 
   useEffect(() => {
     setCurrentAvatar(avatar);
@@ -54,7 +60,7 @@ export default function ModifyAvatar({ currentUser, avatar }) {
     fileUploadRef.current.click();
   }
 
-  function onChangeFile(file) {
+  async function onChangeFile(file) {
     // 파일없으면 리턴 alert띄워주는거 추가해야함
     if (!file) {
       return alert("파일을 첨부해주세요");

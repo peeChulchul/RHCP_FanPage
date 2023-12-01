@@ -15,12 +15,12 @@ export default function useValidationInput(currentValue) {
   });
 
   useEffect(() => {
-    const exp = /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{1,10}$/;
+    const exp = /^(?=.*[a-zA-Z0-9가-힣])[a-zA-Z0-9가-힣]{1,10}$/;
     if (currentValue.nickname === "") {
       return setValidation((prev) => ({ ...prev, nickname: false }));
     }
     if (!exp.test(currentValue.nickname)) {
-      setValidText((prev) => ({ ...prev, nickname: "특수문자 및 초성, 모음 사용은 불가능합니다." }));
+      setValidText((prev) => ({ ...prev, nickname: "특수문자 및 초성, 모음, 공백 사용은 불가능합니다." }));
       setValidation((prev) => ({ ...prev, nickname: false }));
     } else {
       setValidation((prev) => ({ ...prev, nickname: true }));

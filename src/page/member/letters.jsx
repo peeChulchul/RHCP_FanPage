@@ -1,7 +1,6 @@
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
-import logoUrl from "assets/img/logo/logo.png";
 import { Avatar } from "components/box";
 import { TbMoodCry } from "react-icons/tb";
 
@@ -73,7 +72,7 @@ export default function Letters({ selectedLetter }) {
   return (
     <>
       <LetterContainer>
-        {selectedLetter.map(({ id, avatar = logoUrl, content, nickname, uid }) => (
+        {selectedLetter.map(({ id, avatar, content, nickname, uid }) => (
           <Letter key={id} onClick={() => navigate(`${name}/${id}`)}>
             <AvaterBox>
               <Avatar $img={avatar} />

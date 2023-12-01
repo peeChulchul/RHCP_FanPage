@@ -29,8 +29,6 @@ export default function PageMember() {
     dispatch(__getLetters());
   }, [dispatch]);
 
-  console.log("랜더링..");
-  console.log(letters);
   function onClickCard(memberName) {
     if (name === memberName) {
       return;

@@ -1,5 +1,5 @@
 import { TextShadow } from "components/text";
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { __addLetters } from "redux/modules/letter";
@@ -49,12 +49,11 @@ export default function LetterForm() {
   const { currentUser } = useSelector((modules) => modules.modulesAuth);
   const dispatch = useDispatch();
   const { name } = useParams();
-  const contentRef = useRef(null);
 
   function onSubmitLetter(e) {
     const { content } = letterValue;
     e.preventDefault();
-    const inputCheck = submitchecker({ content, contentRef });
+    const inputCheck = submitchecker({ content });
 
     if (inputCheck) {
       dispatch(
@@ -64,6 +63,7 @@ export default function LetterForm() {
           writedTo: name,
           id: uuidv4(),
           createdAt: getYMDHM(),
+          timestamp: new Date(getYMDHM()).getTime() / 1000,
           uid: currentUser.id,
           avatar: currentUser.avatar
         })

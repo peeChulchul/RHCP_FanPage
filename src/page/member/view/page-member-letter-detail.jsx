@@ -4,10 +4,11 @@ import LetterDetailModal from "../letterdetail-modal";
 import { useSelector } from "react-redux";
 
 export default function PageMemberLetterDetail() {
-  const { letters } = useSelector((modules) => modules.modulesLetters);
+  const { letters, isLoading } = useSelector((modules) => modules.modulesLetters);
   const { letterId } = useParams();
 
-  const selectedLetter = letters.find((letter) => letter.id === letterId);
+  console.log(letters);
+  const selectedLetter = letters?.find((letter) => letter.id === letterId);
 
-  return <LetterDetailModal selectedLetter={selectedLetter} />;
+  return <>{isLoading ? <>로딩중</> : <LetterDetailModal selectedLetter={selectedLetter} />}</>;
 }

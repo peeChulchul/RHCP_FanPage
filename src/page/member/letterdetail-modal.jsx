@@ -161,7 +161,6 @@ export default function LetterDetailModal({ selectedLetter }) {
   }
 
   useEffect(() => {
-    console.log("범인임");
     dispatch(modalOpen());
 
     return () => {

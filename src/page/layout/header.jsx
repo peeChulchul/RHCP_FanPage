@@ -114,8 +114,6 @@ export default function LayoutHeader() {
   const [showAvatarMenu, setShowAvatarMenu] = useState(false);
   const dispatch = useDispatch();
 
-  console.log(currentUser.avatar);
-
   const headerBgs = [
     {
       title: "Home",

@@ -30,7 +30,7 @@ const GlobalStyles = createGlobalStyle`
     /* 공통 */
     * {
     box-sizing: border-box;
-    color: var(--color-text);
+    /* color: var(--color-text); */
     text-decoration: none;
     }
     button{
@@ -42,6 +42,13 @@ const GlobalStyles = createGlobalStyle`
         position: relative;
         background-color: var(--color-bg);
         background: radial-gradient(circle, var(--color-bg) 26%, var(--color-dark-pink) 84%);
+    }
+    a{
+        color:var(--color-white)
+    }
+    svg{
+        color:var(--color-white)
+
     }
 `;
 

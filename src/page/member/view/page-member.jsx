@@ -7,6 +7,8 @@ import { useDispatch, useSelector } from "react-redux";
 import MemberCards from "page/common/member-cards";
 import styled from "styled-components";
 import { __getLetters } from "redux/modules/letter";
+import { Loading } from "page/common/loading";
+import { __getAuth } from "redux/modules/auth";
 
 const Container = styled(ContainerBox)`
   padding: calc(var(--spacing) * 10) 0;
@@ -41,7 +43,12 @@ export default function PageMember() {
       <Container>
         <MemberCards onClickCard={onClickCard} />
         {name && <LetterFrom />}
-        {isLoading ? <>로딩중</> : <Letters selectedLetter={selectedLetter.length > 0 ? selectedLetter : []}></Letters>}
+        {name &&
+          (isLoading ? (
+            <Loading />
+          ) : (
+            <Letters selectedLetter={selectedLetter.length > 0 ? selectedLetter : []}></Letters>
+          ))}
       </Container>
       <Outlet />
     </section>

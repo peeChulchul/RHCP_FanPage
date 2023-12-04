@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { authServerInstance } from "api/auth";
 import { jsonServerInstance } from "api/json_server";
 
 const initialState = {
@@ -19,6 +20,13 @@ export const __getLetters = createAsyncThunk("GET_LETTERS", async (payload, thun
 });
 export const __addLetters = createAsyncThunk("ADD_LETTERS", async (payload, thunkAPI) => {
   try {
+    // const { accessToken } = JSON.parse(sessionStorage.getItem("AUTH"));
+    // const tokedResponse = await authServerInstance.get("/user", {
+    //   headers: {
+    //     Authorization: `Bearer ${accessToken}`
+    //   }
+    // });
+    // console.log(tokedResponse);
     const response = await jsonServerInstance.post("/letters", { ...payload });
     return thunkAPI.fulfillWithValue(response.data);
   } catch (error) {
@@ -34,7 +42,6 @@ export const __modifyLetter = createAsyncThunk("MODIFY_LETTERS", async (payload,
   }
 });
 
-// AUTH변경시 json-server에있는 uid가 payload(uid)값과 같은것만 가져와서 내용 변경
 export const __modifyLetterAuth = createAsyncThunk("MODIFY_LETTERS_AUTH", async (payload, thunkAPI) => {
   try {
     const response = await jsonServerInstance.get(`letters?uid=${payload.id}`);
@@ -67,6 +74,9 @@ const modulesLetters = createSlice({
     builder
       .addCase(__getLetters.pending, (action, state) => {
         state.isLoading = true;
+        state.message = null;
+        state.isError = null;
+        state.error = null;
       })
       .addCase(__getLetters.fulfilled, (state, action) => {
         state.isLoading = false;
@@ -79,10 +89,14 @@ const modulesLetters = createSlice({
       })
       .addCase(__addLetters.pending, (action, state) => {
         state.isLoading = true;
+        state.message = null;
+        state.isError = null;
+        state.error = null;
       })
       .addCase(__addLetters.fulfilled, (state, action) => {
         state.isLoading = false;
         state.letters = [action.payload, ...state.letters];
+        state.message = "편지가 추가되었습니다.";
       })
       .addCase(__addLetters.rejected, (state, action) => {
         state.isLoading = false;
@@ -91,9 +105,13 @@ const modulesLetters = createSlice({
       })
       .addCase(__modifyLetter.pending, (action, state) => {
         state.isLoading = true;
+        state.message = null;
+        state.isError = null;
+        state.error = null;
       })
       .addCase(__modifyLetter.fulfilled, (state, action) => {
         state.isLoading = false;
+        state.message = "편지가 수정되었습니다.";
         state.letters = state.letters.map((letter) => {
           if (letter.id === action.payload.id) {
             return action.payload;
@@ -108,11 +126,14 @@ const modulesLetters = createSlice({
       })
       .addCase(__deleteLetter.pending, (action, state) => {
         state.isLoading = true;
+        state.message = null;
+        state.isError = null;
+        state.error = null;
       })
       .addCase(__deleteLetter.fulfilled, (state, action) => {
         console.log(action.payload);
         state.isLoading = false;
-        state.message = action.payload.message;
+        state.message = "편지가 삭제되었습니다.";
         state.letters = state.letters.filter((letter) => letter.id !== action.payload.id);
       })
       .addCase(__deleteLetter.rejected, (state, action) => {

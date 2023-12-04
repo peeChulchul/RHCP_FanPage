@@ -4,6 +4,8 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { FaCheckCircle } from "react-icons/fa";
 import { authServerInstance } from "api/auth";
+import { __signUpAuth } from "redux/modules/auth";
+import { useDispatch, useSelector } from "react-redux";
 
 const Form = styled.form`
   display: flex;
@@ -84,23 +86,20 @@ const Error = styled.div`
 
 export default function SIGNUP({ setIsLogin }) {
   const [user, setUser] = useState({ id: "", password: "", passwordConfirm: "", nickname: "" });
+
+  const { isLoading, isError, error, currentUser, message } = useSelector((modules) => modules.modulesAuth);
   const [validText, validation] = useValidationInput(user);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (message === "회원가입이 완료되었습니다.") {
+      setIsLogin(true);
+    }
+  }, [message, setIsLogin]);
 
   function onSubmitAuth(e) {
     e.preventDefault();
-    (async () => {
-      try {
-        const result = await authServerInstance.post("/register", {
-          id: user.id,
-          password: user.password,
-          nickname: user.nickname
-        });
-        console.log(result.data.message);
-        setIsLogin(true);
-      } catch (error) {
-        console.log(error.response.data);
-      }
-    })();
+    dispatch(__signUpAuth({ id: user.id, password: user.password, nickname: user.nickname }));
   }
 
   return (

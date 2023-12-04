@@ -24,9 +24,9 @@ const NickNameInput = styled.input`
   }
 `;
 const Error = styled.div`
-  padding-top: var(--spacing);
+  padding-top: calc(var(--spacing) * 2);
   position: absolute;
-  bottom: -16px;
+  bottom: -24px;
   width: 100%;
   min-height: 14px;
   font-size: 10px;

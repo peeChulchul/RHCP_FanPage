@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { modalOpen } from "redux/modules/modal";
 import LOGIN from "./login";
 import SIGNUP from "./signup";
+import { toast } from "react-toastify";
 
 const Container = styled.div`
   width: 100%;

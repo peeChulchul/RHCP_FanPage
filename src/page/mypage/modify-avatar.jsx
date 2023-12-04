@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { FaFileImage } from "react-icons/fa6";
+import { BiSolidSave } from "react-icons/bi";
 import defaultAvatar from "assets/img/etc/default_avatar.webp";
 import { useDispatch } from "react-redux";
-import { __modifyAuth } from "redux/modules/auth";
+import { __getAuth, __modifyAuth } from "redux/modules/auth";
 import { __modifyLetterAuth } from "redux/modules/letter";
 
 const Avatar = styled.div`
@@ -14,6 +15,11 @@ const Avatar = styled.div`
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
+`;
+
+const Modifybox = styled.div`
+  gap: calc(var(--spacing) * 2);
+  display: flex;
 `;
 
 const PropertyWrapper = styled.div`
@@ -42,15 +48,16 @@ const PropertyWrapper = styled.div`
     display: none;
   }
 `;
-export default function ModifyAvatar({ currentUser, avatar, isLoading }) {
+export default function ModifyAvatar({ currentUser, avatar }) {
   const [currentAvatar, setCurrentAvatar] = useState(null);
+  const [previewAvatar, setPreviewAvatar] = useState(null);
+  const [selectedFile, setSelectedFile] = useState(null);
   const dispatch = useDispatch();
   const fileUploadRef = useRef();
 
   useEffect(() => {
-    if (isLoading) return;
     dispatch(__modifyLetterAuth(currentUser));
-  }, [currentUser]);
+  }, [currentUser, dispatch]);
 
   useEffect(() => {
     setCurrentAvatar(avatar);
@@ -70,12 +77,12 @@ export default function ModifyAvatar({ currentUser, avatar, isLoading }) {
     const extension = file.name.split(".").pop()?.toLowerCase();
 
     if (fileExtension.includes(extension)) {
-      dispatch(__modifyAuth({ accesToken: currentUser.accesToken, nickname: currentUser.nickname, avatar: file }));
+      setSelectedFile(file);
       const reader = new FileReader();
       reader.readAsDataURL(file);
       return new Promise((resolve) => {
         reader.onload = () => {
-          setCurrentAvatar(reader.result);
+          setPreviewAvatar(reader.result);
           resolve();
         };
       });
@@ -84,21 +91,37 @@ export default function ModifyAvatar({ currentUser, avatar, isLoading }) {
     }
   }
 
+  async function onClickSave() {
+    dispatch(
+      __modifyAuth({ accesToken: currentUser.accesToken, nickname: currentUser.nickname, avatar: selectedFile })
+    );
+    setPreviewAvatar(null);
+    setSelectedFile(null);
+  }
+
   return (
     <>
-      <Avatar $avatar={currentAvatar} />
-      <PropertyWrapper onClick={onClickFileUpload}>
-        <input
-          type="file"
-          onChange={(e) => {
-            onChangeFile(e.target.files[0]);
-          }}
-          ref={fileUploadRef}
-          id="fileUpload"
-        />
-        이미지 변경
-        <FaFileImage />
-      </PropertyWrapper>
+      {previewAvatar ? <Avatar $avatar={previewAvatar} /> : <Avatar $avatar={currentAvatar} />}
+
+      <Modifybox>
+        <PropertyWrapper onClick={onClickFileUpload}>
+          <input
+            type="file"
+            onChange={(e) => {
+              onChangeFile(e.target.files[0]);
+            }}
+            ref={fileUploadRef}
+            id="fileUpload"
+          />
+          아바타 수정
+          <FaFileImage />
+        </PropertyWrapper>
+        {selectedFile && (
+          <PropertyWrapper onClick={onClickSave}>
+            변경사항 저장 <BiSolidSave />
+          </PropertyWrapper>
+        )}
+      </Modifybox>
     </>
   );
 }

@@ -1,7 +1,8 @@
 import { TextShadow } from "components/text";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { __getAuth } from "redux/modules/auth";
 import { __addLetters } from "redux/modules/letter";
 import styled from "styled-components";
 import { getYMDHM } from "utils/format-data";

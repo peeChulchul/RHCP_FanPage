@@ -6,7 +6,6 @@ export const authServerInstance = axios.create({
 
 // 공통으로 사용할 응답 인터셉터
 const responseInterceptor = (response) => {
-  // 정상 응답 처리
   return response;
 };
 
@@ -15,8 +14,6 @@ const errorInterceptor = (error) => {
   // 오류 응답 처리
   if (error.response && error.response.status === 401) {
     sessionStorage.clear("AUTH");
-    // 401 Unauthorized 오류가 발생한 경우
-    // 여기서 원하는 동작을 수행 (예: 로그인 페이지로 리다이렉트)
   }
 
   return Promise.reject(error);

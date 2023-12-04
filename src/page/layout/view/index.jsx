@@ -60,7 +60,8 @@ export default function Layout({ children }) {
     <LayoutContainer>
       <LayoutHeader />
       <ToastContainer />
-      {Object.keys(currentUser).length > 0 ? null : <AUTH />}
+      {/* {Object.keys(currentUser).length > 0 ? null : <AUTH />} */}
+      {sessionAuth !== null ? null : <AUTH />}
       {/* {isLoading ? <Loading /> : <>{Object.keys(currentUser).length > 0 ? null : <AUTH />}</>} */}
 
       {isLoading ? <Loading /> : children}

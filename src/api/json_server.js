@@ -1,4 +1,5 @@
 import axios from "axios";
+import authServerInstance from "./auth";
 
 export const jsonServerInstance = axios.create({
   baseURL: process.env.REACT_APP_DATA_SERVER_URL
@@ -6,7 +7,6 @@ export const jsonServerInstance = axios.create({
 
 // 공통으로 사용할 응답 인터셉터
 const responseInterceptor = (response) => {
-  // 정상 응답 처리
   return response;
 };
 
@@ -17,7 +17,27 @@ const errorInterceptor = (error) => {
 
 // 요청 전에 실행되는 인터셉터
 const requestInterceptor = async (config) => {
-  return config;
+  const sessionAUTH = JSON.parse(sessionStorage.getItem("AUTH"));
+
+  if (sessionAUTH === null) {
+    return config;
+  }
+
+  const { accessToken } = sessionAUTH;
+
+  try {
+    console.log("Sending request to /user endpoint");
+    const response = await authServerInstance.get("/user", {
+      headers: {
+        Authorization: `Bearer ${accessToken}`
+      }
+    });
+
+    return config;
+  } catch (error) {
+    sessionStorage.clear("AUTH");
+    return Promise.reject(error.response);
+  }
 };
 
 // 응답 인터셉터 등록

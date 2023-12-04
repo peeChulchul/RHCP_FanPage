@@ -3,6 +3,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { Avatar } from "components/box";
 import { TbMoodCry } from "react-icons/tb";
+import { useDispatch } from "react-redux";
+import { __getAuth } from "redux/modules/auth";
 
 const LetterContainer = styled.div`
   width: 100%;
@@ -68,12 +70,21 @@ const EmptyIconBox = styled.div`
 export default function Letters({ selectedLetter }) {
   const { name } = useParams();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  async function onClickLetter(id) {
+    const sessionAUTH = JSON.parse(sessionStorage.getItem("AUTH"));
+
+    console.log(sessionAUTH);
+    dispatch(__getAuth(sessionAUTH.accessToken));
+    navigate(`${name}/${id}`);
+  }
 
   return (
     <>
       <LetterContainer>
         {selectedLetter.map(({ id, avatar, content, nickname, uid }) => (
-          <Letter key={id} onClick={() => navigate(`${name}/${id}`)}>
+          <Letter key={id} onClick={() => onClickLetter(id)}>
             <AvaterBox>
               <Avatar $img={avatar} />
               <h1>{nickname}</h1>

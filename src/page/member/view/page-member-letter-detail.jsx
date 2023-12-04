@@ -12,6 +12,7 @@ import ModalContainer from "page/common/modal-container";
 import { BsFillPencilFill } from "react-icons/bs";
 import { BiSolidSave } from "react-icons/bi";
 import { RiDeleteBin6Fill, RiCloseCircleFill } from "react-icons/ri";
+import { __getAuth } from "redux/modules/auth";
 
 const Container = styled.section`
   width: 500px;
@@ -133,6 +134,7 @@ export default function PageMemberLetterDetail() {
   const { nickname, createdAt, content, writedTo, id, avatar = logoUrl, uid } = selectedLetter;
 
   const [contentValue, setContentValue] = useState(`${content}`);
+  const sessionAUTH = JSON.parse(sessionStorage.getItem("AUTH"));
 
   function onClickDelete() {
     const agreed = window.confirm("정말로 삭제하시겠습니까?");
@@ -186,6 +188,8 @@ export default function PageMemberLetterDetail() {
   useEffect(() => {
     setContentValue(content);
   }, [content]);
+
+  if (sessionAUTH === null) return null;
 
   return (
     <>

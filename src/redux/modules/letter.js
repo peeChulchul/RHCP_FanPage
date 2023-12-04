@@ -15,6 +15,7 @@ export const __getLetters = createAsyncThunk("GET_LETTERS", async (payload, thun
     const response = await jsonServerInstance.get(`/letters/?_sort=timestamp&_order=desc`);
     return thunkAPI.fulfillWithValue(response.data);
   } catch (error) {
+    console.log(error);
     return thunkAPI.rejectWithValue(error);
   }
 });
@@ -85,6 +86,7 @@ const modulesLetters = createSlice({
       .addCase(__getLetters.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
+        console.log(action);
         console.log(action.payload);
       })
       .addCase(__addLetters.pending, (action, state) => {
@@ -101,6 +103,7 @@ const modulesLetters = createSlice({
       .addCase(__addLetters.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
+        state.error = action.payload.data.message;
         console.log(action.payload);
       })
       .addCase(__modifyLetter.pending, (action, state) => {

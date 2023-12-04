@@ -26,7 +26,7 @@ export const __signUpAuth = createAsyncThunk("SIGNUP_AUTH", async (payload, thun
 
 export const __loginAuth = createAsyncThunk("LOGIN_AUTH", async (payload, thunkAPI) => {
   try {
-    const response = await authServerInstance.post("/login?expiresIn=10s", payload);
+    const response = await authServerInstance.post("/login?expiresIn=3m", payload);
     return thunkAPI.fulfillWithValue(response.data);
   } catch (error) {
     console.log(error);

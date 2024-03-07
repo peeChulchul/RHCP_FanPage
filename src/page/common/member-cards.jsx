@@ -9,7 +9,7 @@ const MemberImgs = styled.div`
   grid-template-columns: repeat(5, 1fr);
   gap: calc(var(--spacing) * 3);
 
-  @media screen and (max-width: 1200px) {
+  @media screen and (max-width: 800px) {
     grid-template-columns: repeat(3, 1fr);
   }
   @media screen and (max-width: 600px) {
@@ -28,14 +28,20 @@ const MemberInfo = styled(TextShadow)`
   font-weight: bold;
   margin: 0;
   z-index: 1;
+
+  @media (max-width: 400px) {
+    font-size: 0.85rem;
+  }
 `;
 
 const MemberCard = styled.div`
   position: relative;
+  padding-bottom: 150%;
   width: 100%;
-  min-height: 350px;
   border: ${(props) => (props.$selected ? "10px solid var(--color-primary-alt)" : "")};
   transition: all 0.3s linear;
+  box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 1px, rgba(0, 0, 0, 0.07) 0px 2px 2px, rgba(0, 0, 0, 0.07) 0px 4px 4px,
+    rgba(0, 0, 0, 0.07) 0px 8px 8px, rgba(0, 0, 0, 0.07) 0px 16px 16px;
   cursor: ${(props) => (props.$selected ? "" : "pointer")};
   &:hover {
     transform: ${(props) => (props.$selected ? "" : "scale(0.9)")};
@@ -44,12 +50,10 @@ const MemberCard = styled.div`
     content: "";
     opacity: ${(props) => (props.$selected ? "1" : "0.6")};
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
     background-image: ${(props) => `url(${props.$bgUrl})`};
     background-size: cover;
+    width: 100%;
+    height: 100%;
     background-position: center center;
     background-repeat: no-repeat;
   }

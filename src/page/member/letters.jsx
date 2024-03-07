@@ -9,8 +9,15 @@ import { __getAuth } from "redux/modules/auth";
 const LetterContainer = styled.div`
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: calc(var(--spacing) * 2);
+
+  @media screen and (max-width: 800px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media screen and (max-width: 600px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
 `;
 
 const Letter = styled.div`
@@ -75,7 +82,6 @@ export default function Letters({ selectedLetter }) {
   async function onClickLetter(id) {
     const sessionAUTH = JSON.parse(sessionStorage.getItem("AUTH"));
 
-    console.log(sessionAUTH);
     dispatch(__getAuth(sessionAUTH.accessToken));
     navigate(`${name}/${id}`);
   }

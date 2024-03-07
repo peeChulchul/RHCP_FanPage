@@ -11,6 +11,8 @@ const InpurtWrapper = styled.form`
   border: 2px solid black;
   border-radius: 4px;
   margin-bottom: calc(var(--spacing) * 4);
+  width: 260px;
+  background-color: var(--color-white);
 `;
 
 const NickNameInput = styled.input`
@@ -19,6 +21,7 @@ const NickNameInput = styled.input`
   font-weight: bold;
   color: var(--color-black);
   border: none;
+  width: 100%;
   &:focus {
     outline: 3px solid var(--color-primary-alt);
   }
@@ -26,20 +29,22 @@ const NickNameInput = styled.input`
 const Error = styled.div`
   padding-top: calc(var(--spacing) * 2);
   position: absolute;
-  bottom: -24px;
+  bottom: -28px;
   width: 100%;
   min-height: 14px;
   font-size: 10px;
   color: var(--color-accent);
-  text-align: right;
+  text-align: left;
+  line-height: 1.1;
 `;
 const SvgButton = styled.button`
   position: absolute;
   top: 50%;
   cursor: pointer;
   font-size: var(--font-md);
-  transform: translateY(-50%);
-  left: 105%;
+  transform: translateY(-50%) translateX(-50%);
+  right: 5px;
+
   svg {
     fill: var(--color-primary-alt);
   }
@@ -49,7 +54,7 @@ const SvgBox = styled.div`
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  right: 4px;
+  right: 40px;
   svg {
     fill: var(--color-primary-alt);
   }

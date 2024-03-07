@@ -7,16 +7,28 @@ export const Container = styled.div`
   @media screen and (max-width: 1200px) {
     padding: 0 calc(var(--spacing) * 5);
   }
+  @media screen and (max-width: 600px) {
+    padding: 0 calc(var(--spacing) * 2);
+  }
 `;
 
 export const ImgCard = styled.div`
-  background-image: ${(props) => `url(${props.$bg})`};
-  background-position: center center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  height: ${(props) => (props.$height ? props.$height : "250px")};
+  /* height: ${(props) => (props.$height ? props.$height : "250px")}; */
   border-radius: ${(props) => (props.$boardRadius ? props.$boardRadius : "12px")};
   cursor: pointer;
+  position: relative;
+  padding-bottom: 100%;
+  width: 100%;
+  &:after {
+    content: "";
+    position: absolute;
+    background-image: ${(props) => `url(${props.$bg})`};
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    background-position: center center;
+    background-repeat: no-repeat;
+  }
 `;
 
 export const Avatar = styled.div`

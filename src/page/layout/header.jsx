@@ -11,23 +11,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { authLogout } from "redux/modules/auth";
 
 const Header = styled.header`
-  min-height: 400px;
+  padding-bottom: 30%;
   position: relative;
+  width: 100%;
   color: var(--color-white);
-  background-image: ${(props) => ` url(${props.$bg});`};
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
-  padding: calc(var(--spacing) * 6) 0;
+  background-color: var(--color-black);
   &:before {
     opacity: ${(props) => (props.$slected ? "0.5" : "1")};
     content: "";
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: var(--color-black);
+    background-image: ${(props) => ` url(${props.$bg});`};
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    background-position: center center;
+    background-repeat: no-repeat;
     opacity: 0.4;
   }
 `;
@@ -43,6 +41,10 @@ const NavBtnWrapper = styled.div`
   display: flex;
   align-items: center;
   gap: calc(var(--spacing) * 4);
+
+  @media (max-width: 600px) {
+    gap: calc(var(--spacing) * 3);
+  }
 `;
 
 const NavBtn = styled.button`
@@ -53,6 +55,10 @@ const NavBtn = styled.button`
     a {
       color: var(--color-accent);
     }
+  }
+
+  @media (max-width: 600px) {
+    font-size: 1rem;
   }
 `;
 
@@ -65,6 +71,10 @@ const PageName = styled.h1`
   left: 50%;
   text-shadow: -4px 4px 0 var(--color-primary-alt);
   transform: translate(-50%);
+
+  @media (max-width: 600px) {
+    font-size: 2rem;
+  }
 `;
 
 const Avater = styled.div`

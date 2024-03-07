@@ -10,7 +10,7 @@ const AlbumBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: calc(var(--spacing) * 10) 0;
+  /* margin: calc(var(--spacing) * 10) 0; */
   & > div {
     display: grid;
     grid-template-columns: repeat(4, minmax(100px, 200px));
@@ -31,11 +31,19 @@ const AlbumBox = styled.div`
 
 const AlbumCard = styled(ImgCard)`
   border-radius: 0px;
-  height: 200px;
+  /* height: 200px; */
   cursor: pointer;
   transition: all 0.3s linear;
   &:hover {
     transform: scale(0.9);
+  }
+`;
+
+export const MiniTitle = styled(TextShadow)`
+  font-size: var(--font-lg);
+
+  @media (max-width: 600px) {
+    font-size: 1.5rem;
   }
 `;
 
@@ -53,7 +61,7 @@ export default function PageMusic() {
       <Outlet />
 
       <AlbumBox>
-        <TextShadow>Albums</TextShadow>
+        <MiniTitle>Albums</MiniTitle>
         <div>
           {albumsDatas.map(({ name, url }) =>
             param.albumName === name ? null : (

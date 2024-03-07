@@ -26,7 +26,7 @@ export const __signUpAuth = createAsyncThunk("SIGNUP_AUTH", async (payload, thun
 
 export const __loginAuth = createAsyncThunk("LOGIN_AUTH", async (payload, thunkAPI) => {
   try {
-    const response = await authServerInstance.post("/login?expiresIn=3m", payload);
+    const response = await authServerInstance.post("/login?expiresIn=30m", payload);
     return thunkAPI.fulfillWithValue(response.data);
   } catch (error) {
     console.log(error);
@@ -111,12 +111,10 @@ const modulesAuth = createSlice({
         state.status = null;
       })
       .addCase(__loginAuth.rejected, (state, action) => {
-        console.log(action.payload);
         state.isLoading = false;
         state.isError = true;
         state.error = action.payload.data.message;
         state.status = action.payload.status;
-        console.log(action.payload);
       })
       .addCase(__getAuth.pending, (state, action) => {
         state.message = null;
@@ -155,11 +153,8 @@ const modulesAuth = createSlice({
       .addCase(__modifyAuth.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
-        console.log(action);
         state.error = action.payload.data.message;
         state.status = action.payload.status;
-
-        console.log(action.payload);
       })
       .addCase(__signUpAuth.pending, (state, action) => {
         state.message = null;

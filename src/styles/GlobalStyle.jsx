@@ -18,6 +18,7 @@ const GlobalStyles = createGlobalStyle`
     --color-dark-pink:#F2D7E4;
     --color-black: #000000de;
     --color-white: #ffffff;
+    --color-gray:#333333;
 
     /* spacing */
     --spacing: 4px;

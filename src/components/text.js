@@ -11,4 +11,7 @@ export const TextShadow = styled.h1`
   font-weight: bold;
   color: var(--color-white);
   text-shadow: -2px 3px 0 var(--color-primary-alt);
+  @media (max-width: 600px) {
+    font-size: 2rem;
+  }
 `;

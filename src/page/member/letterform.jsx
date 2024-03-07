@@ -30,9 +30,17 @@ const Form = styled.form`
   }
 `;
 
-const InputLabel = styled(TextShadow)`
+const InputLabel = styled.h3`
   margin: var(--spacing) 0;
   font-size: var(--font-lg);
+  text-align: center;
+  padding-top: 4rem;
+  padding-bottom: 1rem;
+  font-weight: bold;
+  @media (max-width: 600px) {
+    font-size: 1rem;
+    padding-bottom: 0;
+  }
 `;
 
 const ContentArea = styled.textarea`

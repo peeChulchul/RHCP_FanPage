@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { RxDot, RxDotFilled } from "react-icons/rx";
 import { TextShadow } from "components/text";
 import { officalMusicVideos } from "data/offical-music-videos";
+import { MiniTitle } from "page/music/view/page-music";
 
 const Container = styled.section`
   position: relative;
@@ -29,7 +30,7 @@ const Viewer = styled.div`
 const MusicVideo = styled.div`
   flex-shrink: 0;
   width: 100%;
-  height: 600px;
+  padding-bottom: 56.25%;
   position: relative;
   border-radius: 16px;
   & iframe {
@@ -37,8 +38,6 @@ const MusicVideo = styled.div`
     width: 100%;
     height: 100%;
     position: absolute;
-    left: 0;
-    right: 0;
   }
 `;
 
@@ -49,7 +48,10 @@ const DotBtns = styled.div`
   font-size: var(--font-lg);
   button {
     cursor: pointer;
-    font-size: var(--font-lg);
+  }
+  svg {
+    width: 40px;
+    height: 40px;
   }
   path {
     fill: var(--color-primary-alt);
@@ -61,7 +63,7 @@ export default function OfficalMusicVIdeos() {
 
   return (
     <Container>
-      <TextShadow>Offical Music Videos</TextShadow>
+      <MiniTitle>Offical Music Videos</MiniTitle>
 
       <CarouselBox>
         <Viewer $viewPage={viewPage}>

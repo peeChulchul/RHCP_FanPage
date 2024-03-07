@@ -17,10 +17,24 @@ const BackDrop = styled.div`
 
 const Container = styled.div`
   position: fixed;
+  /* top: 50%;
+  left: 50%; */
+
+  /* max-width: 500px;
+  width: 90%;
+  height: 500px; */
+
   top: 50%;
   left: 50%;
+
   transform: translate(-50%, -50%);
   z-index: 4;
+
+  @media (max-width: 500px) {
+    left: 10px;
+    right: 10px;
+    transform: translateY(-50%);
+  }
 `;
 
 export default function ModalContainer({ onClickBackDrop, children }) {

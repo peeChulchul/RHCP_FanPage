@@ -12,6 +12,9 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 const LayoutContainer = styled.div`
   position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 `;
 
 export default function Layout({ children }) {
@@ -64,7 +67,7 @@ export default function Layout({ children }) {
       {sessionAuth !== null ? null : <AUTH />}
       {/* {isLoading ? <Loading /> : <>{Object.keys(currentUser).length > 0 ? null : <AUTH />}</>} */}
 
-      {isLoading ? <Loading /> : children}
+      <div style={{ flex: 1 }}>{isLoading ? <Loading /> : children}</div>
       {/* {nesting사용시 outlet} */}
       {/* <Outlet /> */}
       {/* {children} */}

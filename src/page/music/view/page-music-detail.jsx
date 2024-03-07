@@ -4,6 +4,7 @@ import { albumsDatas } from "data/albums";
 import React from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import { MiniTitle } from "./page-music";
 
 const Container = styled.div`
   display: flex;
@@ -15,7 +16,7 @@ const Container = styled.div`
 `;
 
 const AlbumArt = styled(ImgCard)`
-  height: 500px;
+  /* height: 500px; */
   margin-bottom: calc(var(--spacing) * 5);
   width: 100%;
 `;
@@ -34,7 +35,7 @@ const TracksBox = styled.div`
 const Track = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 0 calc(var(--spacing) * 4);
+  /* padding: 0 calc(var(--spacing) * 4); */
   .name {
     flex: 1;
     margin-left: calc(var(--spacing) * 5);
@@ -60,7 +61,7 @@ export default function PageMusicDetail() {
 
   return (
     <Container>
-      <AlbumTitle>{name}</AlbumTitle>
+      <MiniTitle>{name}</MiniTitle>
       <AlbumArt $bg={url} />
       <TracksBox>
         {tracks.map(({ name, length }, index) => (

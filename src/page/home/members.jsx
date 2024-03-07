@@ -3,6 +3,7 @@ import { TextShadow } from "components/text";
 import { useNavigate } from "react-router-dom";
 import MemberCards from "page/common/member-cards";
 import { windowScroll } from "utils/window-scorll";
+import { MiniTitle } from "page/music/view/page-music";
 
 export default function Members() {
   const navigate = useNavigate();
@@ -14,7 +15,7 @@ export default function Members() {
 
   return (
     <section>
-      <TextShadow>Members</TextShadow>
+      <MiniTitle>Members</MiniTitle>
       <MemberCards onClickCard={onClickCard} />
     </section>
   );

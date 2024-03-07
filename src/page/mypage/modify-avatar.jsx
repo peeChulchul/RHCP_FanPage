@@ -4,7 +4,7 @@ import { FaFileImage } from "react-icons/fa6";
 import { BiSolidSave } from "react-icons/bi";
 import defaultAvatar from "assets/img/etc/default_avatar.webp";
 import { useDispatch } from "react-redux";
-import { __getAuth, __modifyAuth } from "redux/modules/auth";
+import { __modifyAuth } from "redux/modules/auth";
 import { __modifyLetterAuth } from "redux/modules/letter";
 
 const Avatar = styled.div`
@@ -15,14 +15,21 @@ const Avatar = styled.div`
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
+
+  @media (max-width: 600px) {
+    width: 200px;
+    height: 200px;
+  }
 `;
 
 const Modifybox = styled.div`
   gap: calc(var(--spacing) * 2);
   display: flex;
+  flex-direction: column;
 `;
 
 const PropertyWrapper = styled.div`
+  width: 260px;
   display: flex;
   align-items: center;
   gap: calc(var(--spacing) * 2);
@@ -30,10 +37,12 @@ const PropertyWrapper = styled.div`
   font-size: var(--font-md);
   color: var(--color-black);
   border-radius: 8px;
-  font-weight: 600;
   background-color: var(--color-dark-pink);
   cursor: pointer;
   filter: brightness(1.05);
+  svg {
+    margin-left: auto;
+  }
   path {
     fill: var(--color-black);
   }
@@ -46,6 +55,9 @@ const PropertyWrapper = styled.div`
   }
   #fileUpload {
     display: none;
+  }
+  @media (max-width: 600px) {
+    font-size: var(--font-sm);
   }
 `;
 export default function ModifyAvatar({ currentUser, avatar }) {

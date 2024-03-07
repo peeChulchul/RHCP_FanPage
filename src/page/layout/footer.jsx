@@ -8,7 +8,7 @@ import { BsSpotify } from "react-icons/bs";
 import styled from "styled-components";
 
 const FooterContents = styled(Container)`
-  padding: calc(var(--spacing) * 4) 0;
+  padding: calc(var(--spacing) * 10) 0;
 
   display: flex;
   flex-direction: column;

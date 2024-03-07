@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { modalOpen } from "redux/modules/modal";
 import LOGIN from "./login";
 import SIGNUP from "./signup";
-import { toast } from "react-toastify";
 
 const Container = styled.div`
   width: 100%;
@@ -16,6 +15,11 @@ const Container = styled.div`
   max-height: 700px;
   padding: calc(var(--spacing) * 8) calc(var(--spacing) * 12);
   background-color: var(--color-bg);
+
+  @media (max-width: 450px) {
+    min-width: 0px;
+    padding: calc(var(--spacing) * 4) calc(var(--spacing) * 6);
+  }
 `;
 
 export default function AUTH() {

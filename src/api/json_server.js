@@ -26,7 +26,6 @@ const requestInterceptor = async (config) => {
   const { accessToken } = sessionAUTH;
 
   try {
-    console.log("Sending request to /user endpoint");
     const response = await authServerInstance.get("/user", {
       headers: {
         Authorization: `Bearer ${accessToken}`

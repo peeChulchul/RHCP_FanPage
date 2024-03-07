@@ -16,6 +16,7 @@ const Container = styled(ContainerBox)`
 `;
 
 const PropertyWrapper = styled.div`
+  width: 260px;
   display: flex;
   align-items: center;
   gap: calc(var(--spacing) * 2);
@@ -23,10 +24,12 @@ const PropertyWrapper = styled.div`
   font-size: var(--font-md);
   color: var(--color-black);
   border-radius: 8px;
-  font-weight: 600;
   background-color: var(--color-dark-pink);
   cursor: pointer;
   filter: brightness(1.05);
+  svg {
+    margin-left: auto;
+  }
   path {
     fill: var(--color-black);
   }
@@ -40,6 +43,20 @@ const PropertyWrapper = styled.div`
   #fileUpload {
     display: none;
   }
+  @media (max-width: 600px) {
+    font-size: var(--font-sm);
+  }
+`;
+
+const NickName = styled.h3`
+  font-size: 1.7rem;
+  padding: 32px 0px 0px 0px;
+  font-weight: 500;
+
+  @media (max-width: 600px) {
+    font-size: 1.2rem;
+    padding: 40px 0px 0px 0px;
+  }
 `;
 
 export default function PageMyPage() {
@@ -48,7 +65,7 @@ export default function PageMyPage() {
 
   return (
     <Container>
-      <TextShadow>{currentUser.id}</TextShadow>
+      <NickName>{currentUser.nickname}</NickName>
       <ModifyAvatar currentUser={currentUser} avatar={currentUser.avatar} />
 
       {modifyNickName ? (

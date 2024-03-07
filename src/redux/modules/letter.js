@@ -60,7 +60,6 @@ export const __modifyLetterAuth = createAsyncThunk("MODIFY_LETTERS_AUTH", async 
 export const __deleteLetter = createAsyncThunk("DELETE_LETTERS", async (payload, thunkAPI) => {
   try {
     const deleteLetter = await jsonServerInstance.delete(`/letters/${payload}`);
-    console.log(deleteLetter);
     return thunkAPI.fulfillWithValue({ id: payload, message: "삭제가 완료되었습니다." });
   } catch (error) {
     return thunkAPI.rejectWithValue(error);
@@ -86,8 +85,6 @@ const modulesLetters = createSlice({
       .addCase(__getLetters.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
-        console.log(action);
-        console.log(action.payload);
       })
       .addCase(__addLetters.pending, (action, state) => {
         state.isLoading = true;
@@ -104,7 +101,6 @@ const modulesLetters = createSlice({
         state.isLoading = false;
         state.isError = true;
         state.error = action.payload.data.message;
-        console.log(action.payload);
       })
       .addCase(__modifyLetter.pending, (action, state) => {
         state.isLoading = true;
@@ -125,7 +121,6 @@ const modulesLetters = createSlice({
       .addCase(__modifyLetter.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
-        console.log(action.payload);
       })
       .addCase(__deleteLetter.pending, (action, state) => {
         state.isLoading = true;
@@ -134,7 +129,6 @@ const modulesLetters = createSlice({
         state.error = null;
       })
       .addCase(__deleteLetter.fulfilled, (state, action) => {
-        console.log(action.payload);
         state.isLoading = false;
         state.message = "편지가 삭제되었습니다.";
         state.letters = state.letters.filter((letter) => letter.id !== action.payload.id);
@@ -142,7 +136,6 @@ const modulesLetters = createSlice({
       .addCase(__deleteLetter.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
-        console.log(action.payload);
       })
       .addDefaultCase((state, action) => {});
   }

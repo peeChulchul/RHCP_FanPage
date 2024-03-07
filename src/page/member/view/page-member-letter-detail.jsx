@@ -24,6 +24,10 @@ const Container = styled.section`
   justify-content: center;
   border-radius: 8px;
   box-shadow: 1px 2px 10px var(--color-white);
+
+  @media (max-width: 500px) {
+    width: 100%;
+  }
 `;
 
 const ModalTop = styled.div`
@@ -88,7 +92,10 @@ const ModalBottom = styled.div`
   }
 `;
 
-const TextStrong = styled(TextShadow)``;
+const TextStrong = styled(TextShadow)`
+  text-shadow: none;
+  color: var(--color-gray);
+`;
 
 const ContentArea = styled.textarea`
   resize: none;
@@ -233,10 +240,13 @@ export default function PageMemberLetterDetail() {
                     <Avatar $img={avatar} />
                     <h1>{nickname}</h1>
                   </AvaterWrapper>
-                  <p>{createdAt}</p>
+                  <p style={{ textAlign: "center", lineHeight: "1.1" }}>
+                    {createdAt.split(" ")[0]}
+                    <br /> {createdAt.split(" ")[1]}
+                  </p>
                 </ModalTop>
                 <ModalBottom>
-                  <TextStrong>To {writedTo}</TextStrong>
+                  <TextStrong>To. {writedTo}</TextStrong>
                   <p>{content}</p>
                 </ModalBottom>
                 {currentUser.id === uid && (
